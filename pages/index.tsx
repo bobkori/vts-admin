@@ -1,9 +1,17 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import MenuIcon from "@/icons/MenuIcon";
+import ChatIcon from "@/icons/ChatIcon";
+import Link from "next/link";
+import SearchIcon from "@/icons/SearchIcon";
+import Notification from "@/icons/Notification";
+import Styles from "../styles/header.module.scss";
+import Dashboard from "@/icons/Dashboard";
+import Button from "@/components/button";
+//import styles from "@/styles/Home.module.css";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -14,110 +22,377 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+      <main>
+        <header className={Styles.mainheader}>
+          <div className={Styles.innerheader}>
+            <div className={Styles.leftcolm}>
+              <div className={Styles.menuvbar}>
+                <Link href="#">
+                  {" "}
+                  <MenuIcon height={20} width={20} />
+                </Link>
+              </div>
+              <div className={Styles.logo}>
+                <Image
+                  src="/svg/1_Logo-4.svg"
+                  height={51}
+                  width={300}
+                  alt="logo"
+                />
+              </div>
+              <div className={Styles.searchbar}>
+                <input
+                  type="text"
+                  name="searchbar"
+                  placeholder="Search anything"
+                />
+                <button>
+                  <SearchIcon width={20} height={20} />
+                </button>
+              </div>
+            </div>
+            <div className={Styles.rightcolm}>
+              <div className={Styles.actionbtn}>
+                <Link href="#">
+                  {" "}
+                  <ChatIcon height={20} width={20} />{" "}
+                </Link>
+
+                <Link href="#">
+                  {" "}
+                  <Notification height={20} width={20} />{" "}
+                </Link>
+
+                <Link href="#" className={Styles.userimage}>
+                  {" "}
+                  <span>
+                    {" "}
+                    <Image
+                      src="/images/avatar3.jpg"
+                      width={50}
+                      height={50}
+                      alt="user"
+                    />
+                  </span>
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
+        </header>
 
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
+        <div className={Styles.vtslayoutwrapper}>
+          <div className={Styles.vtssidebar}>
+            <div className={Styles.vertical_sidemenu}>
+              <ul className={Styles.vertical_nav}>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#">
+                    <div className={Styles.icon}>
+                      <Dashboard height={22} width={22} />
+                    </div>
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
+          <div className={Styles.vtslayoutmain}>
+            <div className="vtsLayoutcontent">
+              <div className={Styles.vtsLayoutbody}>
+                <div className="row">
+                  <div className="col-lg-4">
+                    <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
+                      <label htmlFor="name1">Name</label>
+                      <input type="text" id="name1" />
+                    </div>
+                  </div>
+                  <div className="col-lg-4">
+                    <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
+                      <label htmlFor="name1">Name</label>
+                      <input type="text" id="name1" />
+                    </div>
+                  </div>
+                  <div className="col-lg-4">
+                    <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
+                      <label htmlFor="name1">Name</label>
+                      <input type="text" id="name1" />
+                    </div>
+                  </div>
+                </div>
 
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div className={`${Styles.textarea} ${Styles.inputfrom}`}>
+                      <label htmlFor="Textarea">Textarea</label>
+                      <textarea name="Textarea" id="Textarea"></textarea>
+                    </div>
+                  </div>
+                </div>
 
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
+                <div className="row">
+                  <div className="col-lg-4">
+                    <div
+                      className={`${Styles.checkboxdes} ${Styles.inputfrom}`}
+                    >
+                      <input type="checkbox" name="checkboxdes" id="abc" />
+                      <label htmlFor="abc">
+                        Generally you could be doing something like this:
+                      </label>
+                    </div>
+                  </div>
 
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
+                  <div className="col-lg-4">
+                    <div
+                      className={`${Styles.checkboxdes} ${Styles.inputfrom}`}
+                    >
+                      <input type="checkbox" name="checkboxdes" id="abc2" />
+                      <label htmlFor="abc2">
+                        Generally you could be doing something like this:
+                      </label>
+                    </div>
+                  </div>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
+                  <div className="col-lg-4">
+                    <div
+                      className={`${Styles.checkboxdes} ${Styles.inputfrom}`}
+                    >
+                      <input type="checkbox" name="checkboxdes" id="abc3" />
+                      <label htmlFor="abc3">
+                        Generally you could be doing something like this:
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-lg-4">
+                    <div className={`${Styles.radiobtn} ${Styles.inputfrom}`}>
+                      <input type="radio" name="radio" id="abg1" />
+                      <label htmlFor="abg1">
+                        Generally you could be doing something like this:
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col-lg-4">
+                    <div className={`${Styles.radiobtn} ${Styles.inputfrom}`}>
+                      <input type="radio" name="radio" id="abg2" />
+                      <label htmlFor="abg2">
+                        Generally you could be doing something like this:
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col-lg-4">
+                    <div className={`${Styles.radiobtn} ${Styles.inputfrom}`}>
+                      <input type="radio" name="radio" id="abg3" />
+                      <label htmlFor="abg3">
+                        Generally you could be doing something like this:
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-lg-3">
+                    <Button> Button </Button>
+                  </div>
+                  <div className="col-lg-3">
+                    <Button theme="primary"> Button </Button>
+                  </div>
+                  <div className="col-lg-3">
+                    <Button theme="secondry"> Button </Button>
+                  </div>
+                  <div className="col-lg-3">
+                    <Button theme="tertiary"> Button </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </>
-  )
+  );
 }
