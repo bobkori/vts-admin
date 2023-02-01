@@ -1,15 +1,18 @@
 import React from "react";
 import Header from "./header";
 import Sidebar from "./sidebar";
+import Styles from "@/styles/header.module.scss";
 
 const Layout = ({ children }: React.PropsWithChildren<{}>) => {
   return (
     <React.Fragment>
       <main>
-        {/* <Header />
-        <Sidebar /> */}
+        <Header />
+        <div className={Styles.vtslayoutwrapper}>
+          <Sidebar />
+          {children}
+        </div>
       </main>
-      {children}
     </React.Fragment>
   );
 };

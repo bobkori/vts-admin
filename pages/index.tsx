@@ -1,19 +1,9 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import MenuIcon from "@/icons/MenuIcon";
-import ChatIcon from "@/icons/ChatIcon";
-import Link from "next/link";
-import SearchIcon from "@/icons/SearchIcon";
-import Notification from "@/icons/Notification";
-import Styles from "../styles/header.module.scss";
-import Dashboard from "@/icons/Dashboard";
 import Button from "@/components/button";
-//import styles from "@/styles/Home.module.css";
+import Styles from "@/styles/header.module.scss";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
+function Home({ data }) {
+  console.log(data);
   return (
     <>
       <Head>
@@ -22,377 +12,123 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <header className={Styles.mainheader}>
-          <div className={Styles.innerheader}>
-            <div className={Styles.leftcolm}>
-              <div className={Styles.menuvbar}>
-                <Link href="#">
-                  {" "}
-                  <MenuIcon height={20} width={20} />
-                </Link>
+      <div className={Styles.vtslayoutmain}>
+        <div className="vtsLayoutcontent">
+          <div className={Styles.vtsLayoutbody}>
+            <div className="row">
+              <div className="col-lg-4">
+                <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
+                  <label htmlFor="name1">Name</label>
+                  <input type="text" id="name1" />
+                </div>
               </div>
-              <div className={Styles.logo}>
-                <Image
-                  src="/svg/1_Logo-4.svg"
-                  height={51}
-                  width={300}
-                  alt="logo"
-                />
+              <div className="col-lg-4">
+                <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
+                  <label htmlFor="name1">Name</label>
+                  <input type="text" id="name1" />
+                </div>
               </div>
-              <div className={Styles.searchbar}>
-                <input
-                  type="text"
-                  name="searchbar"
-                  placeholder="Search anything"
-                />
-                <button>
-                  <SearchIcon width={20} height={20} />
-                </button>
+              <div className="col-lg-4">
+                <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
+                  <label htmlFor="name1">Name</label>
+                  <input type="text" id="name1" />
+                </div>
               </div>
             </div>
-            <div className={Styles.rightcolm}>
-              <div className={Styles.actionbtn}>
-                <Link href="#">
-                  {" "}
-                  <ChatIcon height={20} width={20} />{" "}
-                </Link>
 
-                <Link href="#">
-                  {" "}
-                  <Notification height={20} width={20} />{" "}
-                </Link>
-
-                <Link href="#" className={Styles.userimage}>
-                  {" "}
-                  <span>
-                    {" "}
-                    <Image
-                      src="/images/avatar3.jpg"
-                      width={50}
-                      height={50}
-                      alt="user"
-                    />
-                  </span>
-                </Link>
+            <div className="row">
+              <div className="col-lg-12">
+                <div className={`${Styles.textarea} ${Styles.inputfrom}`}>
+                  <label htmlFor="Textarea">Textarea</label>
+                  <textarea name="Textarea" id="Textarea"></textarea>
+                </div>
               </div>
             </div>
-          </div>
-        </header>
 
-        <div className={Styles.vtslayoutwrapper}>
-          <div className={Styles.vtssidebar}>
-            <div className={Styles.vertical_sidemenu}>
-              <ul className={Styles.vertical_nav}>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#">
-                    <div className={Styles.icon}>
-                      <Dashboard height={22} width={22} />
-                    </div>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-              </ul>
+            <div className="row">
+              <div className="col-lg-4">
+                <div className={`${Styles.checkboxdes} ${Styles.inputfrom}`}>
+                  <input type="checkbox" name="checkboxdes" id="abc" />
+                  <label htmlFor="abc">
+                    Generally you could be doing something like this:
+                  </label>
+                </div>
+              </div>
+
+              <div className="col-lg-4">
+                <div className={`${Styles.checkboxdes} ${Styles.inputfrom}`}>
+                  <input type="checkbox" name="checkboxdes" id="abc2" />
+                  <label htmlFor="abc2">
+                    Generally you could be doing something like this:
+                  </label>
+                </div>
+              </div>
+
+              <div className="col-lg-4">
+                <div className={`${Styles.checkboxdes} ${Styles.inputfrom}`}>
+                  <input type="checkbox" name="checkboxdes" id="abc3" />
+                  <label htmlFor="abc3">
+                    Generally you could be doing something like this:
+                  </label>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className={Styles.vtslayoutmain}>
-            <div className="vtsLayoutcontent">
-              <div className={Styles.vtsLayoutbody}>
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
-                      <label htmlFor="name1">Name</label>
-                      <input type="text" id="name1" />
-                    </div>
-                  </div>
-                  <div className="col-lg-4">
-                    <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
-                      <label htmlFor="name1">Name</label>
-                      <input type="text" id="name1" />
-                    </div>
-                  </div>
-                  <div className="col-lg-4">
-                    <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
-                      <label htmlFor="name1">Name</label>
-                      <input type="text" id="name1" />
-                    </div>
-                  </div>
+
+            <div className="row">
+              <div className="col-lg-4">
+                <div className={`${Styles.radiobtn} ${Styles.inputfrom}`}>
+                  <input type="radio" name="radio" id="abg1" />
+                  <label htmlFor="abg1">
+                    Generally you could be doing something like this:
+                  </label>
                 </div>
-
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className={`${Styles.textarea} ${Styles.inputfrom}`}>
-                      <label htmlFor="Textarea">Textarea</label>
-                      <textarea name="Textarea" id="Textarea"></textarea>
-                    </div>
-                  </div>
+              </div>
+              <div className="col-lg-4">
+                <div className={`${Styles.radiobtn} ${Styles.inputfrom}`}>
+                  <input type="radio" name="radio" id="abg2" />
+                  <label htmlFor="abg2">
+                    Generally you could be doing something like this:
+                  </label>
                 </div>
-
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div
-                      className={`${Styles.checkboxdes} ${Styles.inputfrom}`}
-                    >
-                      <input type="checkbox" name="checkboxdes" id="abc" />
-                      <label htmlFor="abc">
-                        Generally you could be doing something like this:
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="col-lg-4">
-                    <div
-                      className={`${Styles.checkboxdes} ${Styles.inputfrom}`}
-                    >
-                      <input type="checkbox" name="checkboxdes" id="abc2" />
-                      <label htmlFor="abc2">
-                        Generally you could be doing something like this:
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="col-lg-4">
-                    <div
-                      className={`${Styles.checkboxdes} ${Styles.inputfrom}`}
-                    >
-                      <input type="checkbox" name="checkboxdes" id="abc3" />
-                      <label htmlFor="abc3">
-                        Generally you could be doing something like this:
-                      </label>
-                    </div>
-                  </div>
+              </div>
+              <div className="col-lg-4">
+                <div className={`${Styles.radiobtn} ${Styles.inputfrom}`}>
+                  <input type="radio" name="radio" id="abg3" />
+                  <label htmlFor="abg3">
+                    Generally you could be doing something like this:
+                  </label>
                 </div>
-
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div className={`${Styles.radiobtn} ${Styles.inputfrom}`}>
-                      <input type="radio" name="radio" id="abg1" />
-                      <label htmlFor="abg1">
-                        Generally you could be doing something like this:
-                      </label>
-                    </div>
-                  </div>
-                  <div className="col-lg-4">
-                    <div className={`${Styles.radiobtn} ${Styles.inputfrom}`}>
-                      <input type="radio" name="radio" id="abg2" />
-                      <label htmlFor="abg2">
-                        Generally you could be doing something like this:
-                      </label>
-                    </div>
-                  </div>
-                  <div className="col-lg-4">
-                    <div className={`${Styles.radiobtn} ${Styles.inputfrom}`}>
-                      <input type="radio" name="radio" id="abg3" />
-                      <label htmlFor="abg3">
-                        Generally you could be doing something like this:
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-lg-3">
-                    <Button> Button </Button>
-                  </div>
-                  <div className="col-lg-3">
-                    <Button theme="primary"> Button </Button>
-                  </div>
-                  <div className="col-lg-3">
-                    <Button theme="secondry"> Button </Button>
-                  </div>
-                  <div className="col-lg-3">
-                    <Button theme="tertiary"> Button </Button>
-                  </div>
-                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-3">
+                <Button> Button </Button>
+              </div>
+              <div className="col-lg-3">
+                <Button theme="primary"> Button </Button>
+              </div>
+              <div className="col-lg-3">
+                <Button theme="secondry"> Button </Button>
+              </div>
+              <div className="col-lg-3">
+                <Button theme="tertiary"> Button </Button>
               </div>
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }
+
+export default Home;
+
+export const getServerSideProps = async () => {
+  const response = await fetch("http://localhost:3000/api/v1/series");
+  const data = await response.json();
+  return {
+    props: {
+      data,
+    },
+  };
+};
