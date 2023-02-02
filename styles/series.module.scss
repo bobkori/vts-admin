@@ -1,0 +1,45 @@
+.series-container {
+  flex: 1;
+  padding: 20px;
+  //   background-color: lightblue;
+}
+
+.series-list {
+  flex: 1;
+  padding: 20px;
+  ul {
+    list-style: none;
+    li {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      display: flex;
+      border: 1px solid #c5cde6;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .list-title {
+      display: flex;
+      align-items: center;
+      p {
+        font-size: 1rem;
+        color: #c5cde6;
+      }
+    }
+    .list-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      span {
+        height: 35px;
+        width: 35px;
+        border-radius: 100%;
+        background: #26324d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+  }
+}

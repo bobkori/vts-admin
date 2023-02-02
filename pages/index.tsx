@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Button from "@/components/button";
 import Styles from "@/styles/header.module.scss";
+import Input from "@/components/inputs";
 
-function Home({ data }) {
-  console.log(data);
+function Home() {
   return (
     <>
       <Head>
@@ -17,25 +17,12 @@ function Home({ data }) {
           <div className={Styles.vtsLayoutbody}>
             <div className="row">
               <div className="col-lg-4">
-                <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
-                  <label htmlFor="name1">Name</label>
-                  <input type="text" id="name1" />
-                </div>
+                <Input label="Hello" />
               </div>
               <div className="col-lg-4">
-                <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
-                  <label htmlFor="name1">Name</label>
-                  <input type="text" id="name1" />
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className={`${Styles.inputbox} ${Styles.inputfrom}`}>
-                  <label htmlFor="name1">Name</label>
-                  <input type="text" id="name1" />
-                </div>
+                <Input label="Hello" />
               </div>
             </div>
-
             <div className="row">
               <div className="col-lg-12">
                 <div className={`${Styles.textarea} ${Styles.inputfrom}`}>
@@ -122,13 +109,3 @@ function Home({ data }) {
 }
 
 export default Home;
-
-export const getServerSideProps = async () => {
-  const response = await fetch("http://localhost:3000/api/v1/series");
-  const data = await response.json();
-  return {
-    props: {
-      data,
-    },
-  };
-};

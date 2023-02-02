@@ -9,11 +9,11 @@ const Sidebar = () => {
       <div className={styles.vertical_sidemenu}>
         <ul className={styles.vertical_nav}>
           <li>
-            <Link href="#">
+            <Link href="/series">
               <div className={styles.icon}>
                 <Dashboard height={22} width={22} />
               </div>
-              <span>Dashboard</span>
+              <span>Series</span>
             </Link>
           </li>
         </ul>

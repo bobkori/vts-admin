@@ -1,0 +1,26 @@
+// input box
+.inputfrom {
+  margin-bottom: 4px;
+  label {
+    font-size: 13px;
+    color: #596274;
+    margin-bottom: 4px;
+    line-height: 20px;
+  }
+}
+.inputbox {
+  position: relative;
+  margin-bottom: 16px;
+  label {
+    display: block;
+  }
+  input {
+    width: 100%;
+    background: #19243b;
+    border: 1px solid #596274;
+    padding: 10px 6px;
+    border-radius: 5px;
+    color: #596274;
+    outline: none;
+  }
+}
