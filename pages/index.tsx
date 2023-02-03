@@ -2,8 +2,15 @@ import Head from "next/head";
 import Button from "@/components/button";
 import Styles from "@/styles/header.module.scss";
 import Input from "@/components/inputs";
+import { CreateSeriesContext } from "@/context/create-series";
+import React from "react";
 
 function Home() {
+  const { state, onChangeValues, onAddQuestion, onDeleteQuestion } =
+    React.useContext(CreateSeriesContext);
+
+  console.log(state);
+
   return (
     <>
       <Head>
@@ -12,6 +19,7 @@ function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <div className={Styles.vtslayoutmain}>
         <div className="vtsLayoutcontent">
           <div className={Styles.vtsLayoutbody}>
@@ -89,10 +97,17 @@ function Home() {
             </div>
             <div className="row">
               <div className="col-lg-3">
-                <Button> Button </Button>
+                <Button onClick={() => onChangeValues("time", new Date())}>
+                  Change Time
+                </Button>{" "}
               </div>
               <div className="col-lg-3">
-                <Button theme="primary"> Button </Button>
+                <Button onClick={() => onChangeValues("slug", "hello-world")}>
+                  Change Slug
+                </Button>{" "}
+              </div>
+              <div className="col-lg-3">
+                <Button theme="primary">Add</Button>
               </div>
               <div className="col-lg-3">
                 <Button theme="secondry"> Button </Button>
@@ -100,6 +115,14 @@ function Home() {
               <div className="col-lg-3">
                 <Button theme="tertiary"> Button </Button>
               </div>
+
+              <Button onClick={onAddQuestion}>Add</Button>
+
+              {state?.questions.map((item, index) => (
+                <Button key={index} onClick={() => onDeleteQuestion(item.uuid)}>
+                  Delete {item.uuid}
+                </Button>
+              ))}
             </div>
           </div>
         </div>
