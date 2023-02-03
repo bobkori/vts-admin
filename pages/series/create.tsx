@@ -48,12 +48,12 @@ const TestSeriesHome = () => {
         };
 
         console.log({ senderData });
-        // const { data } = await axios({
-        //   method: "post",
-        //   url: endpoints.TestSeries,
-        //   data: senderData,
-        // });
-        // console.log(data);
+        const { data } = await axios({
+          method: "post",
+          url: endpoints.TestSeries,
+          data: senderData,
+        });
+        console.log(data);
       } catch (error) {
         console.error(error);
       }

@@ -42,7 +42,7 @@ const TestSeriesHome = ({ series }: any) => {
 export default TestSeriesHome;
 
 export const getServerSideProps = async () => {
-  const response = await fetch("http://localhost:3000/api/v1/series");
+  const response = await fetch("http://localhost:4000/api/v1/series");
   const data = await response.json();
   return {
     props: {
