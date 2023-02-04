@@ -1,0 +1,231 @@
+// CONTAINER
+
+.container {
+  display: flex;
+  padding: 50px;
+  min-height: 700px;
+  // background: #1d283a;
+  justify-content: center;
+  flex: 1;
+}
+.prooutbox {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.details {
+  gap: 1rem;
+  display: grid;
+  text-align: center;
+  h1 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    text-transform: capitalize;
+    color: #e7e7e7;
+  }
+  h2 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    text-transform: capitalize;
+    color: #e7e7e7;
+  }
+  p {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    text-transform: capitalize;
+    color: #c5cde6;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  .items {
+    padding: 26px 33px;
+    border-radius: 15px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    text-align: center;
+    text-transform: capitalize;
+    color: #ffffff;
+    border: 2px solid transparent;
+    transition: all 150ms ease-in-out;
+    background: #0f1729;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    height: 96px;
+    cursor: pointer;
+    &:hover {
+      border: 2px solid #3abff8;
+    }
+  }
+
+  .items.active {
+    border: 2px solid #3abff8;
+  }
+}
+
+.qutbox {
+  background: #0f1729;
+  padding: 10px;
+  margin-bottom: 10px;
+  // width: 400px;
+
+  .heading {
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 5px;
+
+    h4 {
+      color: #0f1729;
+      font-weight: 400;
+      background: var(--night-var-gray);
+      padding: 5px 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a {
+      color: hsl(242deg 88% 45%);
+      font-size: 15px;
+    }
+  }
+  .subheading {
+    color: var(--night-var-gray);
+    font-size: 12px;
+    margin-top: 3px;
+  }
+  .innsubheading {
+    color: var(--night-var-gray);
+    font-size: 10px;
+    margin-top: 3px;
+  }
+
+  .list {
+    display: flex;
+    overflow: auto;
+    margin-right: -10px;
+    gap: 15px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    padding-right: 10px;
+    li {
+      text-align: center;
+      color: var(--night-var-gray);
+      font-size: 10px;
+      list-style: none;
+      transition: 0.5s all;
+
+      .pass {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: #1d283a;
+        margin-bottom: 10px;
+        cursor: pointer;
+        &:hover {
+          background: #0b1a3c;
+          transition: 0.5s all;
+        }
+      }
+    }
+    scrollbar-color: dark;
+    &::-webkit-scrollbar {
+      appearance: none;
+      scrollbar-width: thin;
+      width: 8px;
+      height: 8px;
+      scrollbar-color: rgba(199, 204, 203, 0.25) #212525;
+    }
+    &::-webkit-scrollbar-track {
+      background: #212525;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(199, 204, 203, 0.25);
+      border-radius: 20px;
+      border: 3px solid #212525;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(199, 204, 203, 0.375);
+      border-width: 2px;
+    }
+  }
+}
+
+// new design
+.testfreemocks {
+  display: flex;
+  gap: 30px;
+  .list {
+    box-shadow: 0 3px 16px 0 #0000000d;
+    background: #1d283a;
+    box-shadow: 0 3px 16px 0 var(--black-05);
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    max-width: 200px;
+    border: 1px solid #263856;
+    a {
+      color: #b3c5ef;
+      .qtname {
+        font-size: 15px;
+        margin-bottom: 8px;
+      }
+      .dateep {
+        font-size: 10px;
+        border-bottom: 1px solid #263856;
+        padding-bottom: 8px;
+      }
+      .content {
+        margin-top: 8px;
+        ul {
+          list-style: none;
+          li {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            font-weight: 300;
+            line-height: 1rem;
+            margin: 8px 0px;
+          }
+        }
+      }
+    }
+    .maplink {
+      border-top: 1px solid #263856;
+      text-align: center;
+      margin-top: 10px;
+      display: block;
+      padding-top: 8px;
+      margin: 0 -10px;
+      color: var(--venus-var-skyblue);
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.25rem;
+    }
+    &:hover {
+      background: #0f1729;
+    }
+  }
+}

@@ -1,14 +1,15 @@
 import React from "react";
 import Header from "./header";
 import Sidebar from "./sidebar";
-import Styles from "@/styles/header.module.scss";
+import inter from "@/fonts/inter";
+import styles from "@/styles/header.module.scss";
 
 const Layout = ({ children }: React.PropsWithChildren<{}>) => {
   return (
     <React.Fragment>
-      <main>
+      <main className={inter.className}>
         <Header />
-        <div className={Styles.vtslayoutwrapper}>
+        <div className={styles.vtslayoutwrapper}>
           <Sidebar />
           {children}
         </div>

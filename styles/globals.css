@@ -39,8 +39,6 @@
   --night-var-color5: var(--night-color5);
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
-
 *,
 *::before,
 *::after {
@@ -50,7 +48,6 @@
 }
 body {
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
   color: #c5cde6;

@@ -10,6 +10,7 @@ import {
 } from "@/context/types/series";
 import axios from "axios";
 import * as endpoints from "@/endpoints";
+import RichTextEditor from "@/components/rich-text-editor";
 
 type FEvent = React.ChangeEvent<HTMLFormElement>;
 
@@ -183,6 +184,13 @@ const QuestionContainer = ({
                 onChange={({ target }) =>
                   onChangeQuestion(target.value, "english", parentIndex)
                 }
+              />
+            </div>
+            <div className="row">
+              <RichTextEditor
+                value={""}
+                onChange={(value) => console.log(value)}
+                id="rte"
               />
             </div>
             {data.english?.options.map((_o, _i) => (
