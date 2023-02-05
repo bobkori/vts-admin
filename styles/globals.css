@@ -47,10 +47,11 @@
   box-sizing: border-box;
 }
 body {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
   color: #c5cde6;
+  color-scheme: dark;
+  box-sizing: border-box;
 }
 .container {
   max-width: 1140px;

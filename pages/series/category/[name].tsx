@@ -186,11 +186,15 @@ const QuestionContainer = ({
                 }
               />
             </div>
-            <div className="row">
+            <div className="col">
               <RichTextEditor
                 value={""}
                 onChange={(value) => console.log(value)}
                 id="rte"
+                style={{
+                  flex: "1",
+                  colorScheme: "dark",
+                }}
               />
             </div>
             {data.english?.options.map((_o, _i) => (

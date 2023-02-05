@@ -26,8 +26,8 @@ const initialState: StateTypes = {
   slug: "",
   time: "",
   title: "",
-  is_saved: "",
-  is_marked: "",
+  is_saved: false,
+  is_marked: false,
   question_score: "",
   user_attempt_list: "",
   marks: {

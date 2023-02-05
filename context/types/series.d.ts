@@ -24,8 +24,8 @@ type StateTypes = {
   slug: string;
   time: string;
   title: string;
-  is_saved: string;
-  is_marked: string;
+  is_saved: boolean;
+  is_marked: boolean;
   question_score: string;
   user_attempt_list: string;
   marks: {
