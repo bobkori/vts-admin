@@ -8,7 +8,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgb(34, 45, 69);
+    // background: #222d45;
+    background-color: var(--secondry-dark-background);
+    border-bottom: 1px solid var(--tertiary-dark-background);
     transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     .leftcolm {
       display: flex;
@@ -113,7 +115,7 @@
 // layout style
 .vtslayoutwrapper {
   display: flex;
-  background-color: rgb(25, 36, 59);
+  background-color: #181924;
   min-height: calc(100vh - 74px);
 
   .vtslayoutmain {
@@ -130,7 +132,7 @@
 }
 // Sidebar Style
 .vtssidebar {
-  background-color: rgb(38, 50, 77);
+  background-color: var(--secondry-dark-background);
   color: rgb(197, 205, 230);
   overflow-y: auto;
   display: flex;
@@ -234,7 +236,7 @@
   }
   input {
     width: 100%;
-    background: #19243b;
+    background: #181924;
     border: 1px solid #596274;
     padding: 10px 6px;
     border-radius: 5px;
@@ -251,7 +253,7 @@
   }
   textarea {
     width: 100%;
-    background: #19243b;
+    background: #181924;
     border: 1px solid #596274;
     padding: 10px 6px;
     border-radius: 5px;

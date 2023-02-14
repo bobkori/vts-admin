@@ -1,18 +1,20 @@
+import { RichTextEditorProps } from "@mantine/rte";
 import React from "react";
+import RichTextEditor from "../rich-text-editor";
 import styles from "./input.module.scss";
 
 type Ref = React.Ref<HTMLInputElement>;
 type ButtonProps = {
   label?: string;
-} & React.ComponentPropsWithRef<"input">;
+} & RichTextEditorProps;
 const _Input = ({ label, ...rest }: ButtonProps, ref: Ref) => {
   return (
     <div className={`${styles.inputbox} ${styles.inputfrom}`}>
       {label && <label>{label}</label>}
-      <input type="text" ref={ref} {...rest} />
+      <RichTextEditor {...rest} />
     </div>
   );
 };
 
-const Input = React.forwardRef(_Input);
-export default Input;
+const RichTextEditorInput = React.forwardRef(_Input);
+export default RichTextEditorInput;

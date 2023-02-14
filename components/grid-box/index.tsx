@@ -3,6 +3,7 @@ import css from "@/styles/grid.module.scss";
 
 interface OptionsProps {
   title: string;
+  value: string;
   icon: JSX.Element;
 }
 
@@ -30,7 +31,7 @@ const GridItems = ({ value, items, onSelect }: GridItemsProps) => {
             className={`${css["items"]} ${
               selected === item.title ? css["active"] : ""
             }`}
-            onClick={() => _onSelect(item.title)}
+            onClick={() => _onSelect(item.value || item.title)}
           >
             <span>{item.icon}</span>
             {item.title}

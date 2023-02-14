@@ -1,26 +1,26 @@
-// input box
-.inputfrom {
+// select box
+.selectfrom {
   margin-bottom: 4px;
   label {
     font-size: 14px;
+    color: var(--secondry-dark-color);
     margin-bottom: 4px;
     line-height: 20px;
-    color: var(--secondry-dark-color);
   }
 }
-.inputbox {
+.selectbox {
   position: relative;
   margin-bottom: 16px;
   label {
     display: block;
   }
-  input {
+  select {
     width: 100%;
     border: none;
     padding: 10px 6px;
     border-radius: 5px;
     outline: none;
-    font-size: 1rem;
+    font-size: 0.85rem;
     transition: all 100ms ease-in;
     outline: 2px solid transparent;
     color: var(--primary-dark-color);

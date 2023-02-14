@@ -1,7 +1,6 @@
 .series-container {
   flex: 1;
   padding: 20px;
-  //   background-color: lightblue;
 }
 
 .series-list {
@@ -13,7 +12,7 @@
       padding: 1rem;
       border-radius: 0.5rem;
       display: flex;
-      border: 1px solid #c5cde6;
+      border: 1px solid var(--tetra-dark-background);
       align-items: center;
       justify-content: space-between;
     }
@@ -47,7 +46,7 @@
 .question-container {
   padding: 0.5rem;
   border-radius: 10px;
-  border: 1.5px solid rgb(38, 50, 77);
+  border: 1.5px solid var(--tetra-dark-background);
   display: flex;
   flex-direction: column;
 }
@@ -90,7 +89,7 @@
       transition: all 200ms ease;
     }
     li.active {
-      background: #26324d;
+      background: var(--tetra-dark-background);
       border-bottom: 2px solid #857dcc;
     }
   }

@@ -37,6 +37,18 @@
   --night-var-primary: var(--night-primary);
   --night-var-primary2: var(--night-primary2);
   --night-var-color5: var(--night-color5);
+
+  // NEW COLORS
+  --primary-dark-color: #eeeeee;
+  --secondry-dark-color: #a2a4b7;
+  --tertiary-dark-color: #282933;
+  --tetra-dark-color: #2a2b36;
+  --primary-dark-background: #181924;
+  --secondry-dark-background: #24252f;
+  --tertiary-dark-background: #282933;
+  --tetra-dark-background: #2a2b36;
+
+  --accent-color: #857dcc;
 }
 
 *,
@@ -65,6 +77,14 @@ body {
   margin-right: -15px;
   margin-left: -15px;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #ececec;
+    background: #0e1525;
+  }
+}
+
 .col,
 .col-1,
 .col-10,

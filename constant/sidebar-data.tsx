@@ -1,39 +1,35 @@
-import React from "react";
-import Link from "next/link";
-import styles from "@/styles/header.module.scss";
-import sidebarArray from "@/constant/sidebar-data";
+import HomeIcon from "@/icons/HomeIcon";
+import Dashboard from "@/icons/Dashboard";
 
-const Sidebar = () => {
-  return (
-    <div className={styles.vtssidebar}>
-      <div className={styles.vertical_sidemenu}>
-        <ul className={styles.vertical_nav}>
-          {sidebarArray.map((data, index) => {
-            return (
-              <li key={index}>
-                <Link href={data.href}>
-                  <div className={styles.icon}>
-                    <data.icon height={22} width={22} />
-                  </div>
-                  <span>{data.name}</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </div>
-  );
-};
+type SVG = React.SVGProps<SVGSVGElement>;
 
-export default Sidebar;
-
-// Alt + Shift + ↓ ( Copy line bottom )
-
-const SideBar = [
+const sidebarArray = [
+  {
+    name: "Home",
+    icon: (props: SVG) => <HomeIcon height={22} width={22} {...props} />,
+    href: "/",
+    active: [""],
+    menu: [],
+  },
+  {
+    name: "Category",
+    icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
+    href: "/series/category",
+    active: [""],
+    menu: [],
+  },
+  {
+    name: "Series",
+    icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
+    href: "/series",
+    active: [""],
+    menu: [],
+  },
   {
     name: "User Management",
     href: "/",
+    active: [""],
+    icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
     menu: [
       {
         name: "Management",
@@ -48,11 +44,15 @@ const SideBar = [
   {
     name: "Content Management: ",
     href: "/",
+    active: [""],
+    icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
     menu: [],
   },
   {
     name: "Reporting and Analytics: ",
     href: "/",
+    active: [""],
+    icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
     menu: [
       {
         name: "User Activity ",
@@ -91,6 +91,8 @@ const SideBar = [
   {
     name: "marketing management",
     href: "/",
+    active: [""],
+    icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
     menu: [
       {
         name: "sms",
@@ -111,3 +113,5 @@ const SideBar = [
     ],
   },
 ];
+
+export default sidebarArray;

@@ -6,9 +6,9 @@ import BankIcon from "@/icons/BankIcon";
 import NurseIcon from "@/icons/NurseIcon";
 import css from "@/styles/grid.module.scss";
 import { useRouter } from "next/router";
-import AddCircleOutline from "@/icons/AddCircleOutline";
+import railwayPattern from "@/constant/railway-pattern";
 
-const Category = () => {
+const CategorySSC = () => {
   const { push } = useRouter();
   return (
     <div className={css["container"]}>
@@ -18,46 +18,42 @@ const Category = () => {
           <p>Choose one of category for test series </p>
         </div>
         <GridItems
-          value={"SSC"}
-          items={dataArray}
-          onSelect={(value) => push(`/series/category/${value.toLowerCase()}`)}
+          value={"NTPC"}
+          items={railwayPattern.map((data) => {
+            return {
+              title: data.name,
+              icon: <GlobeIcon fill="#fff" />,
+            };
+          })}
+          onSelect={(value) =>
+            push(`/series/category/railway/${value.toLowerCase()}`)
+          }
         />
       </div>
     </div>
   );
 };
-export default Category;
+export default CategorySSC;
 
 const dataArray = [
   {
-    title: "SSC",
+    title: "CGL",
     icon: <GlobeIcon fill="#fff" />,
   },
   {
-    title: "Railway",
+    title: "CHSL",
     icon: <RailIcon fill="#fff" />,
   },
   {
-    title: "Bank",
+    title: "CPO",
     icon: <BankIcon fill="#fff" />,
   },
   {
-    title: "Defence",
+    title: "MTS",
     icon: <NurseIcon fill="#fff" />,
   },
   {
-    title: "CA",
+    title: "GD",
     icon: <GlobeIcon fill="#fff" />,
   },
-  {
-    title: "Other",
-    icon: <AddCircleOutline fill="#fff" />,
-  },
 ];
-
-{
-  /* <h1>Category</h1> */
-}
-{
-  /* <p>Choose one of category</p> */
-}

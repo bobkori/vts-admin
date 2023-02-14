@@ -8,9 +8,8 @@ import {
   QuestionsTypes,
   CreateSeriesContextTypes,
 } from "@/context/types/series";
-import axios from "axios";
-import * as endpoints from "@/endpoints";
-import RichTextEditorInput from "@/components/inputs/rich-text-input";
+import Select from "@/components/select";
+import Option from "@/components/select/option";
 
 type FEvent = React.ChangeEvent<HTMLFormElement>;
 
@@ -20,50 +19,18 @@ const TestSeriesHome = () => {
     onAddQuestion,
     onChangeOptions,
     onChangeQuestion,
-    onChangeValues,
     onDeleteQuestion,
   } = React.useContext(CreateSeriesContext);
 
-  console.log(state?.questions);
-
-  // const onSubmitData = React.useCallback(async (event: FEvent) => {
-  //   event.preventDefault();
-  // }, []);
-
-  const onSubmitData = React.useCallback(
-    async (event: FEvent) => {
-      event.preventDefault();
-      try {
-        const senderData = {
-          slug: state?.slug,
-          title: state?.title,
-          is_saved: false,
-          is_marked: false,
-          question_score: "20%",
-          user_attempt_list: [],
-          marks: {
-            positive: 2,
-            negative: 0.5,
-          },
-          questions: state?.questions,
-        };
-
-        const { data } = await axios({
-          method: "post",
-          url: endpoints.TestSeries,
-          data: senderData,
-        });
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [state?.questions, state?.slug, state?.title]
-  );
+  const onSubmitData = React.useCallback(async (event: FEvent) => {
+    event.preventDefault();
+  }, []);
 
   return (
     <div className={css["series-container"]}>
-      <h4>Basic Info</h4>
+      <div className={css["question-detail"]}>
+        <h2>Tier One</h2>
+      </div>
       <form
         onSubmit={onSubmitData}
         style={{
@@ -72,21 +39,28 @@ const TestSeriesHome = () => {
           flexDirection: "column",
         }}
       >
-        <div className="row">
-          <div className="col-lg-4">
-            <Input
-              label="Title"
-              onChange={({ target }) => onChangeValues("title", target.value)}
-            />
-          </div>
-          <div className="col-lg-4">
-            <Input
-              label="slug"
-              onChange={({ target }) => onChangeValues("slug", target.value)}
-            />
+        <div className={`${css["question-container"]}`}>
+          <div className={`row`}>
+            <div className="col-lg-12">
+              <Input label="Title" />
+            </div>
+            <div className="col-lg-12">
+              <Input label="slug" />
+            </div>
+            <div className="col-lg-6">
+              <Select label="Select Subject">
+                <Option>Reasoning</Option>
+                <Option>GS</Option>
+                <Option>Maths</Option>
+                <Option>English</Option>
+              </Select>
+            </div>
+            <div className="col-lg-6">
+              <Input type={"number"} label="Duration" />
+            </div>
           </div>
         </div>
-        {/* FOR question */}
+
         <div
           style={{
             gap: ".5rem",
@@ -176,45 +150,16 @@ const QuestionContainer = ({
       default:
         return (
           <div className="row">
-            {/* <Input
+            <div className="col">
+              <Input
                 name="question"
                 label="Question"
                 value={data.english?.question}
                 onChange={({ target }) =>
                   onChangeQuestion(target.value, "english", parentIndex)
                 }
-              /> */}
-            {/* <RichTextEditor
-                value={data.english?.question}
-                onChange={(value) =>
-                  onChangeQuestion(value, "english", parentIndex)
-                }
-                id="rte"
-                controls={[
-                  ["bold", "italic", "underline"],
-                  ["unorderedList", "orderedList"],
-                  ["sup", "sub"],
-                  ["image"],
-                ]}
-                // onImageUpload={(file) => console.log(file)}
-              /> */}
-            <div className="col">
-              <RichTextEditorInput
-                label="Question"
-                value={data.english?.question}
-                onChange={(value) =>
-                  onChangeQuestion(value, "english", parentIndex)
-                }
-                id="rte"
-                controls={[
-                  ["bold", "italic", "underline"],
-                  ["unorderedList", "orderedList"],
-                  ["sup", "sub"],
-                  ["image"],
-                ]}
               />
             </div>
-
             {data.english?.options.map((_o, _i) => (
               <div className="col-lg-6" key={_i}>
                 <Input
@@ -229,70 +174,48 @@ const QuestionContainer = ({
                 />
               </div>
             ))}
-            <div className="col">
-              <RichTextEditorInput
-                id="rte"
-                label="Solution"
-                value={data.english?.question}
-                onChange={(value) =>
-                  onChangeQuestion(value, "english", parentIndex)
-                }
-                controls={[
-                  ["h1", "h2", "h3"],
-                  ["bold", "italic", "underline"],
-                  ["unorderedList", "orderedList"],
-                  ["sup", "sub"],
-                  ["image", "code"],
-                ]}
-              />
-            </div>
           </div>
         );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    selectedTab,
-    data.hindi?.question,
-    data.hindi?.options,
-    data.english?.question,
-    data.english?.options,
-    onChangeQuestion,
     parentIndex,
-    onChangeOptions,
+    selectedTab,
+    data.hindi?.options,
+    data.hindi?.question,
+    data.english?.options,
+    data.english?.question,
   ]);
 
   return (
-    <div className={css["question-container"]}>
+    <React.Fragment>
       <div className={css["question-detail"]}>
         <h2>Question : {parentIndex + 1}</h2>
-        {/* <h2>UUID : {data.uuid}</h2> */}
       </div>
-      <div className={css["tab-container"]}>
-        <ul className={css["tab-controls"]}>
-          {tabsArray.map((t, i) => (
-            <li
-              key={i}
-              onClick={() => setSelectedTab(t.label)}
-              className={t.label === selectedTab ? css["active"] : ""}
-            >
-              {t.label}
+      <div className={css["question-container"]}>
+        <div className={css["tab-container"]}>
+          <ul className={css["tab-controls"]}>
+            {tabsArray.map((t, i) => (
+              <li
+                key={i}
+                onClick={() => setSelectedTab(t.label)}
+                className={t.label === selectedTab ? css["active"] : ""}
+              >
+                {t.label}
+              </li>
+            ))}
+          </ul>
+          <ul className={css["list-controls"]}>
+            <li>
+              <i onClick={() => onDeleteQuestion(parentIndex)}>
+                <DeleteIcon height={18} width={18} />
+              </i>
             </li>
-          ))}
-        </ul>
-        <ul className={css["list-controls"]}>
-          {/* <li>
-            <i onClick={() => onDeleteQuestion(parentIndex)}>
-              <DeleteIcon height={18} width={18} />
-            </i>
-          </li> */}
-          <li>
-            <i onClick={() => onDeleteQuestion(parentIndex)}>
-              <DeleteIcon height={18} width={18} />
-            </i>
-          </li>
-        </ul>
+          </ul>
+        </div>
+        <div className="flex">{LanguageContainer}</div>
       </div>
-      <div className="flex">{LanguageContainer}</div>
-    </div>
+    </React.Fragment>
   );
 };
 

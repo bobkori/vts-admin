@@ -137,7 +137,7 @@ const CreateSeriesProvider = ({ children }: React.PropsWithChildren<{}>) => {
   );
 
   const onAddQuestion = React.useCallback(async () => {
-    await sleep(500);
+    await sleep(200);
     dispatch(addQuestion());
   }, [dispatch]);
 
