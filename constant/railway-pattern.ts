@@ -3,6 +3,7 @@ const railwayPattern = [
     name: "NTPC",
     duration: 60, // 1 Hour
     questionsCount: null,
+    href: "/ntpc",
     tiers: [
       {
         name: "Tier 1",
@@ -86,6 +87,7 @@ const railwayPattern = [
     name: "ALP",
     duration: 60, // 1 Hour
     questionsCount: null,
+    href: "/alp",
     tiers: [
       {
         name: "Tier 1",
@@ -169,6 +171,7 @@ const railwayPattern = [
     name: "Group-D",
     duration: 60, // 1 Hour
     questionsCount: null,
+    href: "/group-d",
     tiers: [
       {
         name: "Tier 1",

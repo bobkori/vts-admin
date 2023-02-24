@@ -18,16 +18,16 @@ const sidebarArray = [
     active: [""],
     menu: [],
   },
+  // {
+  //   name: "Series",
+  //   icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
+  //   href: "/series",
+  //   active: [""],
+  //   menu: [],
+  // },
   {
-    name: "Series",
-    icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
-    href: "/series",
-    active: [""],
-    menu: [],
-  },
-  {
-    name: "User Management",
-    href: "/",
+    name: "Users",
+    href: "/users",
     active: [""],
     icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
     menu: [
@@ -42,14 +42,14 @@ const sidebarArray = [
     ],
   },
   {
-    name: "Content Management: ",
+    name: "Content",
     href: "/",
     active: [""],
     icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
     menu: [],
   },
   {
-    name: "Reporting and Analytics: ",
+    name: "Analytics",
     href: "/",
     active: [""],
     icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,
@@ -89,7 +89,7 @@ const sidebarArray = [
     ],
   },
   {
-    name: "marketing management",
+    name: "Marketing",
     href: "/",
     active: [""],
     icon: (props: SVG) => <Dashboard height={22} width={22} {...props} />,

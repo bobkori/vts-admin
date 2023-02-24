@@ -33,7 +33,7 @@ export default Sidebar;
 const SideBar = [
   {
     name: "User Management",
-    href: "/",
+    href: "/users",
     menu: [
       {
         name: "Management",

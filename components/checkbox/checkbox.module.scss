@@ -1,0 +1,22 @@
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  @include center();
+  button {
+    @include center();
+    height: 15px;
+    width: 15px;
+    border-radius: 2px;
+    background: #444;
+    outline: 1.5px solid #888;
+    transition: all 100ms ease;
+    cursor: pointer;
+  }
+  button.checked {
+    background: #857dcc;
+    outline-color: #857dcc;
+  }
+}

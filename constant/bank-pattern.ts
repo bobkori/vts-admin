@@ -3,6 +3,7 @@ const bankPattern = [
     name: "RBI Assistant",
     duration: 60, // 1 Hour
     questionsCount: null,
+    href: "/rbi-assistant",
     tiers: [
       {
         name: "Tier 1",
@@ -86,6 +87,8 @@ const bankPattern = [
     name: "SBI",
     duration: 60, // 1 Hour
     questionsCount: null,
+    href: "/sbi",
+
     tiers: [
       {
         name: "Tier 1",
@@ -169,6 +172,7 @@ const bankPattern = [
     name: "IBPS",
     duration: 60, // 1 Hour
     questionsCount: null,
+    href: "/ibps",
     tiers: [
       {
         name: "Tier 1",

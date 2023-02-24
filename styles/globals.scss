@@ -65,6 +65,11 @@ body {
   color-scheme: dark;
   box-sizing: border-box;
 }
+
+button {
+  border: none;
+  outline: none;
+}
 .container {
   max-width: 1140px;
 }
@@ -76,6 +81,12 @@ body {
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
+}
+
+@for $i from 1 through 128 {
+  .gap-#{$i} {
+    gap: $i px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -192,4 +203,16 @@ body {
   -ms-flex: 0 0 100%;
   flex: 0 0 100%;
   max-width: 100%;
+}
+
+// CUSTOM
+
+.text-align-left {
+  text-align: left;
+}
+.text-align-center {
+  text-align: center;
+}
+.text-align-right {
+  text-align: right;
 }
