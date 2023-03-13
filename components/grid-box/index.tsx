@@ -3,8 +3,8 @@ import css from "@/styles/grid.module.scss";
 
 interface OptionsProps {
   title: string;
-  value: string;
-  icon: JSX.Element;
+  value?: string;
+  icon?: JSX.Element;
 }
 
 interface GridItemsProps {

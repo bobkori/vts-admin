@@ -21,9 +21,9 @@ const _Button = ({ children, theme, ...rest }: ButtonProps, ref: ButtonRef) => {
 
   return (
     <button
+      ref={ref}
       className={`${rest.className} ${themeClass} ${styles.button}`}
       {...rest}
-      ref={ref}
     >
       {children}
     </button>

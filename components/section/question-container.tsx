@@ -3,51 +3,40 @@ import Input from "@/components/inputs";
 import DeleteIcon from "@/icons/DeleteIcon";
 import Textarea from "@/components/textarea";
 import css from "@/styles/series.module.scss";
-
-type QuestionsTypes = {
-  QSNo: number;
-  SSNo: number;
-  SSSNo: number;
-  type: string;
-  hindi: {
-    question: string;
-    options: {
-      prompt: string | number;
-      value: string;
-    }[];
-  };
-  english: {
-    question: string;
-    options: {
-      prompt: string | number;
-      value: string;
-    }[];
-  };
-};
+import InputWithRadio from "../inputs/with-radio";
+import { SectionQuestionsTypes as QuestionsTypes } from "@/typings/series";
 
 type IEvent = React.ChangeEvent<HTMLInputElement>;
+type TEvent = React.ChangeEvent<HTMLTextAreaElement>;
+
+type SHandler<E> = (event: E, language: string, index: number) => void;
+type LHandler = (
+  event: IEvent,
+  language: string,
+  index: {
+    parentIndex: number;
+    childIndex: number;
+  }
+) => void;
 
 interface QuestionContainerProps {
   data: QuestionsTypes;
   parentIndex: number;
-  onChangeQuestion: (event: IEvent, language: string, index: number) => void;
-  onChangeOptions: (
-    event: IEvent,
-    language: string,
-    index: {
-      parentIndex: number;
-      childIndex: number;
-    }
-  ) => void;
+  onChangeQuestion: SHandler<IEvent>;
+  onChangeSolution: SHandler<TEvent>;
+  onChangeOptions: LHandler;
+  onChangeCorrect: LHandler;
   onDeleteQuestion: (index: number) => void;
 }
 
 const QuestionContainer = ({
+  data,
+  parentIndex,
   onChangeOptions,
   onChangeQuestion,
   onDeleteQuestion,
-  data,
-  parentIndex,
+  onChangeSolution,
+  onChangeCorrect,
 }: QuestionContainerProps) => {
   const tabsArray = [
     {
@@ -75,8 +64,10 @@ const QuestionContainer = ({
             </div>
             {data.hindi?.options.map((_o, childIndex) => (
               <div className="col-lg-6" key={childIndex}>
-                <Input
-                  label={`Option ${numberToWord[childIndex]}`}
+                <InputWithRadio
+                  label={`Option ${numberToWord[childIndex]} ${
+                    _o.correct ? "(Correct)" : ""
+                  }`}
                   value={_o.value}
                   onChange={(event) =>
                     onChangeOptions(event, "hindi", {
@@ -84,11 +75,25 @@ const QuestionContainer = ({
                       childIndex,
                     })
                   }
+                  radioProps={{
+                    onChange: (event) => {
+                      onChangeCorrect(event, "hindi", {
+                        parentIndex,
+                        childIndex,
+                      });
+                    },
+                  }}
                 />
               </div>
             ))}
             <div className="col">
-              <Textarea label="Add Solution" />
+              <Textarea
+                label="Add Solution"
+                value={data.hindi.solution}
+                onChange={(event) =>
+                  onChangeSolution(event, "hindi", parentIndex)
+                }
+              />
             </div>
           </div>
         );
@@ -107,8 +112,10 @@ const QuestionContainer = ({
             </div>
             {data.english?.options.map((_o, childIndex) => (
               <div className="col-lg-6" key={childIndex}>
-                <Input
-                  label={`Option ${numberToWord[childIndex]}`}
+                <InputWithRadio
+                  label={`Option ${numberToWord[childIndex]} ${
+                    _o.correct ? "(Correct)" : ""
+                  }`}
                   value={_o.value}
                   onChange={(event) =>
                     onChangeOptions(event, "english", {
@@ -116,11 +123,25 @@ const QuestionContainer = ({
                       childIndex,
                     })
                   }
+                  radioProps={{
+                    onChange: (event) => {
+                      onChangeCorrect(event, "english", {
+                        parentIndex,
+                        childIndex,
+                      });
+                    },
+                  }}
                 />
               </div>
             ))}
             <div className="col">
-              <Textarea label="Add Solution" />
+              <Textarea
+                label="Add Solution"
+                value={data.english.solution}
+                onChange={(event) =>
+                  onChangeSolution(event, "english", parentIndex)
+                }
+              />
             </div>
           </div>
         );
@@ -131,8 +152,10 @@ const QuestionContainer = ({
     selectedTab,
     data.hindi?.options,
     data.hindi?.question,
+    data.hindi?.solution,
     data.english?.options,
     data.english?.question,
+    data.english?.solution,
   ]);
 
   return (

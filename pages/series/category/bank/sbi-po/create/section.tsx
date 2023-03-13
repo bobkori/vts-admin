@@ -1,30 +1,111 @@
 import React from "react";
 import axios from "axios";
+import { useImmer } from "use-immer";
 import { useRouter } from "next/router";
 import Input from "@/components/inputs";
 import Button from "@/components/button";
 import Select from "@/components/select";
-import css from "@/styles/series.module.scss";
 import Option from "@/components/select/option";
+import css from "@/styles/series.module.scss";
 import QuestionContainer from "@/components/section/question-container";
-import useCreateSection from "@/components/series/use-create-section";
+
+type IEvent = React.ChangeEvent<HTMLInputElement>;
+
+const options = Array.from({ length: 4 }).map((_, index) => {
+  return {
+    prompt: index + 1,
+    value: "",
+  };
+});
 
 type FEvent = React.ChangeEvent<HTMLFormElement>;
 
 const TestSeriesHome = () => {
-  const { query, back } = useRouter();
+  const { query } = useRouter();
+  // console.log(query?.series_id);
 
-  const {
-    state,
-    onAddQuestion,
-    onChangeCorrect,
-    onChangeOptions,
-    onChangeQuestion,
-    onChangeSolution,
-    onChangeValues,
-    onDeleteQuestion,
-    onChangeMarks,
-  } = useCreateSection();
+  const questions = [
+    {
+      type: "mcq",
+      QSNo: 1,
+      SSNo: 1,
+      SSSNo: 0,
+      hindi: {
+        question: "",
+        options: options,
+      },
+      english: {
+        question: "",
+        options: options,
+      },
+    },
+  ];
+
+  const [state, updateQuestionState] = useImmer({
+    title: "",
+    questionsCount: "",
+    time: 3000,
+    marks: {
+      positive: 2,
+      negative: -0.5,
+    },
+    questions: questions,
+  });
+  // ADD QUESTION IN STATE
+  const onAddQuestion = React.useCallback(() => {
+    updateQuestionState((draft) => {
+      draft.questions.push(...questions);
+    });
+  }, [state, updateQuestionState]);
+
+  const onDeleteQuestion = React.useCallback(
+    (index: number) => {
+      updateQuestionState((draft) => {
+        draft.questions.filter((_d, _i) => index !== _i);
+      });
+    },
+    [updateQuestionState]
+  );
+
+  const onChangeValues = React.useCallback(
+    (key: any, value: any) => {
+      updateQuestionState((draft: any) => {
+        draft[key] = value;
+      });
+    },
+    [updateQuestionState]
+  );
+  // Update Question
+  const onChangeQuestion = React.useCallback(
+    (event: IEvent, language: string, index: number) => {
+      const { value } = event.target;
+      updateQuestionState((draft) => {
+        const question = draft.questions[index] as any;
+        question[language].question = value;
+      });
+    },
+    [updateQuestionState]
+  );
+
+  // Update Options
+  const onChangeOptions = React.useCallback(
+    (
+      event: IEvent,
+      language: string,
+      index: {
+        parentIndex: number;
+        childIndex: number;
+      }
+    ) => {
+      const { value } = event.target;
+      updateQuestionState((draft) => {
+        // @ts-ignore
+        const _draft = draft.questions[index.parentIndex][language];
+        _draft.options[index.childIndex].value = value;
+      });
+    },
+    [updateQuestionState]
+  );
 
   const onSubmitData = React.useCallback(
     async (event: FEvent) => {
@@ -33,36 +114,30 @@ const TestSeriesHome = () => {
       const _data = {
         title: state.title,
         questionsCount: state.questions.length,
+        time: state.time,
         marks: {
-          positive: state.marks.positive,
-          negative: state.marks.negative,
+          positive: 2,
+          negative: -0.5,
         },
         questions: state.questions,
       };
+      console.log(_data);
       try {
-        const { status } = await axios({
+        const { data, status } = await axios({
           url: `http://localhost:4000/api/v1/sections/${query?.series_id}`,
           method: "post",
           data: _data,
         });
-
+        console.log(data);
         if (status === 200) {
-          back();
           alert(`Section created for ${query?.series_id} Series`);
         }
-        console.log(_data);
       } catch (err) {
         console.log(err);
       }
+      console.log(state);
     },
-    [
-      back,
-      state.title,
-      state.questions,
-      query?.series_id,
-      state.marks.negative,
-      state.marks.positive,
-    ]
+    [query?.series_id, state]
   );
 
   return (
@@ -80,10 +155,9 @@ const TestSeriesHome = () => {
       >
         <div className={`${css["question-container"]}`}>
           <div className={`row`}>
-            <div className="col-lg-12">
+            <div className="col-lg-6">
               <Select
                 label="Select Subject"
-                value={state.title}
                 onChange={({ target }) => onChangeValues("title", target.value)}
               >
                 <Option>Reasoning</Option>
@@ -95,22 +169,15 @@ const TestSeriesHome = () => {
             <div className="col-lg-6">
               <Input
                 type={"number"}
-                label="Negative Marking"
-                value={state.marks.negative}
-                onChange={({ target }) =>
-                  onChangeMarks("negative", target.value)
-                }
+                label="Duration"
+                onChange={({ target }) => onChangeValues("time", target.value)}
               />
             </div>
             <div className="col-lg-6">
-              <Input
-                type={"number"}
-                label="Positive Marking"
-                value={state.marks.positive}
-                onChange={({ target }) =>
-                  onChangeMarks("positive", target.value)
-                }
-              />
+              <Input type={"number"} label="Negative Marking" />
+            </div>
+            <div className="col-lg-6">
+              <Input type={"number"} label="Positive Marking" />
             </div>
           </div>
         </div>
@@ -131,8 +198,6 @@ const TestSeriesHome = () => {
                 onChangeQuestion={onChangeQuestion}
                 onChangeOptions={onChangeOptions}
                 onDeleteQuestion={onDeleteQuestion}
-                onChangeSolution={onChangeSolution}
-                onChangeCorrect={onChangeCorrect}
               />
             );
           })}

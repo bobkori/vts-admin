@@ -3,7 +3,7 @@
 // }
 // default button
 .default {
-  padding: 6px 16px;
+  padding: 10px 16px;
   border-radius: 4px;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
@@ -26,7 +26,7 @@
 }
 
 .default.disable {
-  color: rgb(20, 19, 19);
+  color: rgb(255, 255, 255);
   background-color: #3d3c3c;
   box-shadow: #00000033 0px 3px 1px -2px, #00000024 0px 2px 2px 0px,
     #0000001f 0px 1px 5px 0px;
@@ -45,7 +45,7 @@
 
 // primary Button
 .primary {
-  padding: 6px 16px;
+  padding: 10px 16px;
   border-radius: 4px;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
@@ -57,6 +57,7 @@
     rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
   border: 1px solid #181924;
   cursor: pointer;
+  font-weight: 500;
 }
 
 .primary.active {
@@ -68,12 +69,13 @@
 }
 
 .primary.disable {
-  color: rgb(20, 19, 19);
+  color: rgb(255, 255, 255);
   background-color: #3d3c3c;
   box-shadow: #00000033 0px 3px 1px -2px, #00000024 0px 2px 2px 0px,
     #0000001f 0px 1px 5px 0px;
   border: 1px solid #3d3c3c;
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .primary.error {
@@ -87,7 +89,7 @@
 
 // secondry Button
 .secondry {
-  padding: 6px 16px;
+  padding: 10px 16px;
   border-radius: 4px;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
@@ -129,7 +131,7 @@
 
 // tertiary Button
 .tertiary {
-  padding: 6px 16px;
+  padding: 10px 16px;
   border-radius: 4px;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,

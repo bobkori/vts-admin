@@ -7,25 +7,13 @@ import TableHead from "@/components/table/head";
 import TableBody from "@/components/table/body";
 import View from "@/components/view";
 import Button from "@/components/button";
-import axios from "axios";
+import { GetServerSidePropsContext } from "next";
 import DataRow, { DataRowProps } from "@/components/section/data-row";
-
-const course = ["railway", "alp"];
 
 const CHSLPage = ({ data }: any) => {
   const { push } = useRouter();
-  async function onDeleteSeries(_id: any): Promise<void> {
-    console.log(_id);
-    try {
-      const { data } = await axios({
-        url: `http://localhost:4000/api/v1/series/${_id}`,
-        method: "delete",
-      });
-      console.log(data);
-      // router.reload();
-    } catch (error) {
-      console.log(error);
-    }
+  function onDeleteProduct(_id: any): void {
+    throw new Error("Function not implemented.");
   }
 
   console.log(data);
@@ -34,12 +22,16 @@ const CHSLPage = ({ data }: any) => {
   return (
     <div className={`${styles["table-container"]}`}>
       <View>
-        <h1>CGL Test Series</h1>
+        <h1>Create Sections</h1>
         <Button
           color={"cyan"}
-          onClick={() => push(`/series/category/railway/alp/create`)}
+          onClick={() =>
+            push(
+              `/series/category/bank/ibps-po/create/section?series_id=${router.query?.series_id}`
+            )
+          }
         >
-          Create New Series
+          Create New Sections
         </Button>
       </View>
       <Table>
@@ -48,19 +40,8 @@ const CHSLPage = ({ data }: any) => {
             <TableHeader listArray={headerArray} />
           </TableHead>
           <TableBody>
-            {data.map((item: DataRowProps, index: number) => {
-              return (
-                <DataRow
-                  key={index}
-                  {...item}
-                  onView={() =>
-                    router.push(
-                      `/series/category/railway/alp/sections?series_id=${item?._id}`
-                    )
-                  }
-                  onDelete={() => onDeleteSeries(item._id)}
-                />
-              );
+            {data?.sections?.map((item: DataRowProps, index: number) => {
+              return <DataRow key={index} {...item} />;
             })}
           </TableBody>
         </React.Fragment>
@@ -70,34 +51,28 @@ const CHSLPage = ({ data }: any) => {
 };
 export default CHSLPage;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const response = await fetch(
-    `http://localhost:4000/api/v1/series/${course.join("+")}`
+    `http://localhost:4000/api/v1/series/sections/${context.query.series_id}`
   );
   const data = await response.json();
   console.log({ serverData: data });
   return {
     props: {
       data,
+      series_id: context.query.series_id,
     },
   };
 };
 
 const headerArray = [
-  // {
-  //   name: "Image",
-  // },
   {
     name: "Title",
   },
   {
-    name: "Category",
-  },
-  {
-    name: "Sections",
-  },
-  {
-    name: "Date",
+    name: "Questions Count",
   },
   {
     name: "Action",

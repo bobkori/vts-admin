@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import CreateSeries from "@/components/series/create";
 
-const course = ["bank", "rbi-assistant"];
+const course = ["bank", "ibps-clerk"];
 
 const TestSeriesHome = () => {
   const router = useRouter();

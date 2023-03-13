@@ -6,8 +6,7 @@ import DeleteIcon from "@/icons/DeleteIcon";
 import { useRouter } from "next/router";
 
 const TestSeriesHome = ({ series }: any) => {
-  console.log(series);
-
+ 
   const { push } = useRouter();
 
   return (

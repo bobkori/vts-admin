@@ -14,7 +14,7 @@
   label {
     display: block;
   }
-  input {
+  .text-input {
     width: 100%;
     border: none;
     padding: 10px 6px;
@@ -27,6 +27,24 @@
     background: var(--secondry-dark-background);
     &:focus {
       outline: 2px solid var(--accent-color);
+    }
+  }
+}
+
+// WITH RADIO
+
+.inputbox {
+  .with-radio {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    .radio-input {
+      font-size: 1.5rem;
+      width: auto;
+      border: none;
+      outline: none;
+      height: 20px;
+      width: 20px;
     }
   }
 }

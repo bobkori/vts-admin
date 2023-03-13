@@ -9,7 +9,12 @@ const _Input = ({ label, ...rest }: ButtonProps, ref: Ref) => {
   return (
     <div className={`${styles.inputbox} ${styles.inputfrom}`}>
       {label && <label>{label}</label>}
-      <input type="text" ref={ref} {...rest} />
+      <input
+        type="text"
+        ref={ref}
+        className={`${rest.className} ${styles["text-input"]}`}
+        {...rest}
+      />
     </div>
   );
 };

@@ -32,7 +32,7 @@ const CHSLPage = ({ data }: any) => {
         <h1>Bank Test Series</h1>
         <Button
           color={"cyan"}
-          onClick={() => push(`/series/category/railway/alp/create`)}
+          onClick={() => push(`/series/category/bank/rbi-assistant/create`)}
         >
           Create New Series
         </Button>
@@ -67,7 +67,7 @@ export default CHSLPage;
 
 export const getServerSideProps = async () => {
   const response = await fetch(
-    `http://localhost:4000/api/v1/series?course=${course.join("+")}`
+    `http://localhost:4000/api/v1/series/${course.join("+")}`
   );
   const data = await response.json();
   console.log({ serverData: data });

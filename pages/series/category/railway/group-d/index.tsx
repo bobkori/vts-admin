@@ -72,7 +72,7 @@ export default CHSLPage;
 
 export const getServerSideProps = async () => {
   const response = await fetch(
-    `http://localhost:4000/api/v1/series?course=${course.join("+")}`
+    `http://localhost:4000/api/v1/series/${course.join("+")}`
   );
   const data = await response.json();
   console.log({ serverData: data });

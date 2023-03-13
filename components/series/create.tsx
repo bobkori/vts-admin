@@ -1,20 +1,24 @@
 import React from "react";
 import Input from "@/components/inputs";
-import Button from "@/components/button";
 import css from "@/styles/series.module.scss";
-import useCreateSeries, { State } from "./use-create";
+import useCreateSeries from "./use-create-series";
+import Select from "../select";
+import Option from "../select/option";
+import timer from "@/utils/timer";
+import slugMaker from "@/utils/slug-maker";
+import { SeriesStateType } from "@/typings/series";
 
 type Event = React.ChangeEvent<HTMLFormElement>;
-interface TestSeriesHomeProps {
+type TestSeriesHomeProps = {
   course: string[];
-  onSubmit: (value: State) => void;
-}
+  onSubmit: (value: SeriesStateType) => void;
+};
 
 const CreateSeries = ({ course, onSubmit }: TestSeriesHomeProps) => {
-  const { onChangeValues, state } = useCreateSeries({
+  const { onChangeValues, state, valid } = useCreateSeries<SeriesStateType>({
     title: "",
     slug: "",
-    time: 3600,
+    duration: 3600,
     is_saved: false,
     is_marked: false,
     question_score: "56%",
@@ -50,25 +54,48 @@ const CreateSeries = ({ course, onSubmit }: TestSeriesHomeProps) => {
             <div className="col-lg-12">
               <Input
                 label="Title"
+                value={state.title}
                 onChange={({ target }) => onChangeValues("title", target.value)}
               />
             </div>
             <div className="col-lg-12">
               <Input
+                value={state.slug}
                 label="Slug"
-                onChange={({ target }) => onChangeValues("slug", target.value)}
+                onChange={({ target }) =>
+                  onChangeValues("slug", slugMaker(target.value))
+                }
               />
             </div>
             <div className="col-lg-12">
-              <Input
-                type={"number"}
+              <Input readOnly label="Course" value={course[1].toUpperCase()} />
+            </div>
+            <div className="col-lg-12">
+              <Select
                 label="Duration"
-                onChange={({ target }) => onChangeValues("time", target.value)}
-              />
+                value={state.duration}
+                onChange={({ target }) =>
+                  onChangeValues("duration", Number(target.value))
+                }
+              >
+                <Option value={timer(30)}>30 Min</Option>
+                <Option value={timer(45)}>45 Min</Option>
+                <Option value={timer(60)}>1 Hour</Option>
+                <Option value={timer(60 + 30)}>1:30 Hour</Option>
+              </Select>
             </div>
           </div>
           <div>
-            <Button type="submit">Submit Data</Button>
+            <button
+              type="submit"
+              disabled={!valid}
+              style={{
+                padding: "10px",
+                borderRadius: "8px",
+              }}
+            >
+              Submit Data
+            </button>
           </div>
         </div>
       </form>

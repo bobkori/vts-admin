@@ -8,6 +8,7 @@ import Select from "@/components/select";
 import Option from "@/components/select/option";
 import css from "@/styles/series.module.scss";
 import QuestionContainer from "@/components/section/question-container";
+import useCreateSection from "@/components/series/use-create-section";
 
 type IEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -22,90 +23,18 @@ type FEvent = React.ChangeEvent<HTMLFormElement>;
 
 const TestSeriesHome = () => {
   const { query } = useRouter();
-  // console.log(query?.series_id);
 
-  const questions = [
-    {
-      type: "mcq",
-      QSNo: 1,
-      SSNo: 1,
-      SSSNo: 0,
-      hindi: {
-        question: "",
-        options: options,
-      },
-      english: {
-        question: "",
-        options: options,
-      },
-    },
-  ];
-
-  const [state, updateQuestionState] = useImmer({
-    title: "",
-    questionsCount: "",
-    time: 3000,
-    marks: {
-      positive: 2,
-      negative: -0.5,
-    },
-    questions: questions,
-  });
-  // ADD QUESTION IN STATE
-  const onAddQuestion = React.useCallback(() => {
-    updateQuestionState((draft) => {
-      draft.questions.push(...questions);
-    });
-  }, [state, updateQuestionState]);
-
-  const onDeleteQuestion = React.useCallback(
-    (index: number) => {
-      updateQuestionState((draft) => {
-        draft.questions.filter((_d, _i) => index !== _i);
-      });
-    },
-    [updateQuestionState]
-  );
-
-  const onChangeValues = React.useCallback(
-    (key: any, value: any) => {
-      updateQuestionState((draft: any) => {
-        draft[key] = value;
-      });
-    },
-    [updateQuestionState]
-  );
-  // Update Question
-  const onChangeQuestion = React.useCallback(
-    (event: IEvent, language: string, index: number) => {
-      const { value } = event.target;
-      updateQuestionState((draft) => {
-        const question = draft.questions[index] as any;
-        question[language].question = value;
-      });
-    },
-    [updateQuestionState]
-  );
-
-  // Update Options
-  const onChangeOptions = React.useCallback(
-    (
-      event: IEvent,
-      language: string,
-      index: {
-        parentIndex: number;
-        childIndex: number;
-      }
-    ) => {
-      const { value } = event.target;
-      updateQuestionState((draft) => {
-        // @ts-ignore
-        const _draft = draft.questions[index.parentIndex][language];
-        _draft.options[index.childIndex].value = value;
-      });
-    },
-    [updateQuestionState]
-  );
+  const {
+    state,
+    onAddQuestion,
+    onChangeCorrect,
+    onChangeOptions,
+    onChangeQuestion,
+    onChangeSolution,
+    onChangeValues,
+    onDeleteQuestion,
+    onChangeMarks,
+  } = useCreateSection();
 
   const onSubmitData = React.useCallback(
     async (event: FEvent) => {
@@ -155,9 +84,10 @@ const TestSeriesHome = () => {
       >
         <div className={`${css["question-container"]}`}>
           <div className={`row`}>
-            <div className="col-lg-6">
+            <div className="col-lg-12">
               <Select
                 label="Select Subject"
+                value={state.title}
                 onChange={({ target }) => onChangeValues("title", target.value)}
               >
                 <Option>Reasoning</Option>
@@ -169,15 +99,22 @@ const TestSeriesHome = () => {
             <div className="col-lg-6">
               <Input
                 type={"number"}
-                label="Duration"
-                onChange={({ target }) => onChangeValues("time", target.value)}
+                label="Negative Marking"
+                value={state.marks.negative}
+                onChange={({ target }) =>
+                  onChangeMarks("negative", target.value)
+                }
               />
             </div>
             <div className="col-lg-6">
-              <Input type={"number"} label="Negative Marking" />
-            </div>
-            <div className="col-lg-6">
-              <Input type={"number"} label="Positive Marking" />
+              <Input
+                type={"number"}
+                label="Positive Marking"
+                value={state.marks.positive}
+                onChange={({ target }) =>
+                  onChangeMarks("positive", target.value)
+                }
+              />
             </div>
           </div>
         </div>
@@ -198,6 +135,8 @@ const TestSeriesHome = () => {
                 onChangeQuestion={onChangeQuestion}
                 onChangeOptions={onChangeOptions}
                 onDeleteQuestion={onDeleteQuestion}
+                onChangeSolution={onChangeSolution}
+                onChangeCorrect={onChangeCorrect}
               />
             );
           })}
