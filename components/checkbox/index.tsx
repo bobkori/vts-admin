@@ -11,6 +11,7 @@ const Checkbox = ({ checked, ...rest }: Props, ref: Ref) => {
     <div className={css["container"]}>
       <button
         ref={ref}
+        type="button"
         className={`${checked ? css.checked : ""} ${rest.className}`}
         {...rest}
       >

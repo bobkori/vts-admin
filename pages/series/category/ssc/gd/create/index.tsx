@@ -2,10 +2,11 @@ import React from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import CreateSeries from "@/components/series/create";
+import PerPageLayout from "@/layout/perpage";
 
 const course = ["ssc", "gd"];
 
-const TestSeriesHome = () => {
+const Page = () => {
   const router = useRouter();
   const onSubmitData = React.useCallback(
     async (state: any) => {
@@ -30,4 +31,5 @@ const TestSeriesHome = () => {
     <CreateSeries course={course} onSubmit={(value) => onSubmitData(value)} />
   );
 };
-export default TestSeriesHome;
+export default Page;
+Page.perpage = PerPageLayout;

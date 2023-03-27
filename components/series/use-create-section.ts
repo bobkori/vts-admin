@@ -2,14 +2,14 @@ import React from "react";
 import { useImmer } from "use-immer";
 import { SectionQuestionsTypes } from "@/typings/series";
 
-type IEvent = React.ChangeEvent<HTMLInputElement>;
+type IEvent = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 type TEvent = React.ChangeEvent<HTMLTextAreaElement>;
 
-const options = Array.from({ length: 4 }).map((_, index) => {
+const options = Array.from({ length: 4 }).map((_) => {
   return {
-    prompt: index + 1,
     value: "",
     correct: false,
+    image: null,
   };
 });
 
@@ -21,14 +21,17 @@ const useCreateSection = () => {
         QSNo: 1,
         SSNo: 1,
         SSSNo: 0,
+
         hindi: {
           question: "",
           solution: "",
+          image: null,
           options: options,
         },
         english: {
           question: "",
           solution: "",
+          image: null,
           options: options,
         },
       },
@@ -55,10 +58,11 @@ const useCreateSection = () => {
 
   const onDeleteQuestion = React.useCallback(
     (index: number) => {
-      updateQuestionState((draft) => {
-        // draft.questions.filter((_d, _i) => index !== _i);
-        draft.questions.splice(index, 1);
-      });
+      if (window.confirm("Are You sure to delete this question")) {
+        updateQuestionState((draft) => {
+          draft.questions.splice(index, 1);
+        });
+      }
     },
     [updateQuestionState]
   );
@@ -83,6 +87,7 @@ const useCreateSection = () => {
   const onChangeQuestion = React.useCallback(
     (event: IEvent, language: string, index: number) => {
       const { value } = event.target;
+
       updateQuestionState((draft) => {
         const question = draft.questions[index] as any;
         question[language].question = value;
@@ -90,6 +95,20 @@ const useCreateSection = () => {
     },
     [updateQuestionState]
   );
+
+  // Update Question
+  const onAddImageToQuestion = React.useCallback(
+    (file: File, language: string, index: number) => {
+      if (file) {
+        updateQuestionState((draft) => {
+          const question = draft.questions[index] as any;
+          question[language].image = file;
+        });
+      }
+    },
+    [updateQuestionState]
+  );
+
   // Update Solution
   const onChangeSolution = React.useCallback(
     (event: TEvent, language: string, index: number) => {
@@ -98,6 +117,27 @@ const useCreateSection = () => {
         const question = draft.questions[index] as any;
         question[language].solution = value;
       });
+    },
+    [updateQuestionState]
+  );
+  const onAddImageToOptions = React.useCallback(
+    (
+      file: File,
+      language: string,
+      index: {
+        parentIndex: number;
+        childIndex: number;
+      }
+    ) => {
+      // const { files } = event.target;
+      console.log({ from: file });
+      if (file) {
+        updateQuestionState((draft) => {
+          // @ts-ignore
+          const _draft = draft.questions[index.parentIndex][language];
+          _draft.options[index.childIndex].image = file;
+        });
+      }
     },
     [updateQuestionState]
   );
@@ -123,7 +163,6 @@ const useCreateSection = () => {
   );
   const onChangeCorrect = React.useCallback(
     (
-      event: IEvent,
       language: string,
       index: {
         parentIndex: number;
@@ -144,6 +183,7 @@ const useCreateSection = () => {
     },
     [updateQuestionState]
   );
+
   return {
     state,
     onChangeValues: React.useMemo(() => onChangeValues, [onChangeValues]),
@@ -154,6 +194,14 @@ const useCreateSection = () => {
     onChangeOptions: React.useMemo(() => onChangeOptions, [onChangeOptions]),
     onChangeSolution: React.useMemo(() => onChangeSolution, [onChangeSolution]),
     onChangeCorrect: React.useMemo(() => onChangeCorrect, [onChangeCorrect]),
+    onAddImageToQuestion: React.useMemo(
+      () => onAddImageToQuestion,
+      [onAddImageToQuestion]
+    ),
+    onAddImageToOptions: React.useMemo(
+      () => onAddImageToOptions,
+      [onAddImageToOptions]
+    ),
   };
 };
 export default useCreateSection;

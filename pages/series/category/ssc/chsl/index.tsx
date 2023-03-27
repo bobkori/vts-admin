@@ -1,13 +1,15 @@
 import React from "react";
+import axios from "axios";
+import View from "@/components/view";
+import Table from "@/components/table";
 import { useRouter } from "next/router";
+import Button from "@/components/button";
 import styles from "@/styles/table.module.scss";
 import TableHeader from "@/components/table/header";
-import Table from "@/components/table";
 import TableHead from "@/components/table/head";
+import PerPageLayout from "@/layout/perpage";
+import { NEXT_PUBLIC_BASE_URL } from "@/config";
 import TableBody from "@/components/table/body";
-import View from "@/components/view";
-import Button from "@/components/button";
-import axios from "axios";
 import DataRow, { DataRowProps } from "@/components/section/data-row";
 
 const course = ["ssc", "chsl"];
@@ -68,9 +70,11 @@ const CHSLPage = ({ data }: any) => {
 };
 export default CHSLPage;
 
+CHSLPage.perpage = PerPageLayout;
+
 export const getServerSideProps = async () => {
   const response = await fetch(
-    `http://localhost:4000/api/v1/series/${course.join("+")}`
+    `${NEXT_PUBLIC_BASE_URL}/api/v1/series/${course.join("+")}/course`
   );
   const data = await response.json();
   return {

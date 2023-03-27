@@ -26,22 +26,25 @@ type SectionQuestionsTypes = {
   QSNo: number;
   SSNo: number;
   SSSNo: number;
+
   hindi: {
     question: string;
     solution: string;
+    image: string | FIle | Blob;
     options: {
-      prompt: number;
       value: string;
       correct: boolean;
+      image: string | FIle | Blob;
     }[];
   };
   english: {
     question: string;
     solution: string;
+    image: string | FIle | Blob;
     options: {
-      prompt: number;
       value: string;
       correct: boolean;
+      image: string | FIle | Blob;
     }[];
   };
 };

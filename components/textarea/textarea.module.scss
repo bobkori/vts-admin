@@ -6,14 +6,15 @@
     margin-bottom: 4px;
     line-height: 20px;
     color: var(--secondry-dark-color);
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 }
 .textareabox {
   position: relative;
   margin-bottom: 16px;
-  label {
-    display: block;
-  }
+
   textarea {
     width: 100%;
     border: none;
@@ -25,10 +26,41 @@
     outline: 2px solid transparent;
     color: var(--primary-dark-color);
     background: var(--secondry-dark-background);
+    resize: none;
+    font-family: inherit;
+    min-height: 80px;
     &:focus {
       outline: 2px solid var(--accent-color);
     }
-    resize: none;
-    font-family: inherit;
+  }
+}
+
+// FOR IMAGE PREVIEW
+
+.image-container {
+  gap: 8px;
+  display: flex;
+  flex: 1;
+  // background: var(--secondry-dark-background);
+}
+
+.input-file {
+  display: none;
+}
+.image-preview {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  background: var(--tetra-dark-background);
+  display: flex !important;
+  margin: 0 !important;
+  border-radius: 4px;
+  overflow: hidden;
+  justify-content: center;
+  img {
+    height: 80px;
+    width: 200px;
+    max-width: 100%;
+    object-fit: contain;
   }
 }

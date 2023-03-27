@@ -1,0 +1,68 @@
+
+// const { status } = await axios({
+//   url: `http://localhost:4000/api/v1/sections/${query?.series_id}`,
+//   method: "post",
+//   data: _data,
+// });
+// if (status === 200) {
+//   back();
+//   alert(`Section created for ${query?.series_id} Series`);
+// }
+// console.log(_data);
+
+// const imageData = new Promise((resolve) => {
+//   cloned.map(async (item) => {
+//     if (item.english.image !== null) {
+//       item.english.image = await uploadImage(item.english.image);
+//       // item.english.image = await asyncUrl(i_url);
+//       item.english.options.map(async (item) => {
+//         if (item.image !== null) {
+//           item.image = await uploadImage(item.image);
+//           // item.image = await asyncUrl(i_url);
+//         }
+//       });
+//     }
+//     if (item.hindi.image !== null) {
+//       item.hindi.image = await uploadImage(item.hindi.image);
+//       // item.hindi.image = await asyncUrl(i_url);
+//       item.hindi.options.map(async (item) => {
+//         if (item.image !== null) {
+//           item.image = await uploadImage(item.image);
+//           // item.image = await asyncUrl(i_url);
+//         }
+//       });
+//     }
+//   });
+//   resolve(cloned);
+// });
+// console.log({ cloned: await imageData });
+// imageData.then(async (__data) => {
+//   const _data = {
+//     title: state.title,
+//     questionsCount: state.questions.length,
+//     marks: {
+//       positive: state.marks.positive,
+//       negative: state.marks.negative,
+//     },
+//     questions: __data,
+//   };
+//   const { data, status } = await axios({
+//     url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/sections/create/${query?.series_id}`,
+//     method: "post",
+//     data: _data,
+//   });
+//   if (status === 200) {
+//     back();
+//     alert(`Section created for ${query?.series_id} Series`);
+//   }
+//   console.log(data);
+// });
+
+    // Generate Simple Response for DB
+      const i_url = `https://cdn.pixabay.com/photo/2023/03/14/18/22/boho-7852928_1280.jpg`;
+
+      const asyncUrl = (url: string) => {
+        return new Promise((resolve) => {
+          resolve(url);
+        });
+      };

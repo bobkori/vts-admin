@@ -1,7 +1,6 @@
 import React from "react";
 const useLoadaing = () => {
   const [state, setState] = React.useState(false);
-
   const onStart = React.useCallback(() => {
     setState(true);
   }, []);

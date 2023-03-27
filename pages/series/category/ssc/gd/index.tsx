@@ -5,21 +5,16 @@ import TableHeader from "@/components/table/header";
 import Table from "@/components/table";
 import TableHead from "@/components/table/head";
 import TableBody from "@/components/table/body";
-import TableRow from "@/components/table/t-row";
-import TableData from "@/components/table/t-data";
-import Checkbox from "@/components/checkbox";
 import View from "@/components/view";
-import ViewIcon from "@/icons/view";
-import EditIcon from "@/icons/edit";
-import DeleteIcon from "@/icons/delete";
 import Button from "@/components/button";
-import moment from "moment";
 import axios from "axios";
 import DataRow, { DataRowProps } from "@/components/section/data-row";
+import { NEXT_PUBLIC_BASE_URL } from "@/config";
+import PerPageLayout from "@/layout/perpage";
 
 const course = ["ssc", "gd"];
 
-const CHSLPage = ({ data }: any) => {
+const Page = ({ data }: any) => {
   const { push } = useRouter();
   async function onDeleteSeries(_id: any): Promise<void> {
     try {
@@ -70,14 +65,14 @@ const CHSLPage = ({ data }: any) => {
     </div>
   );
 };
-export default CHSLPage;
+export default Page;
+Page.perpage = PerPageLayout;
 
 export const getServerSideProps = async () => {
   const response = await fetch(
-    `http://localhost:4000/api/v1/series/${course.join("+")}`
+    `${NEXT_PUBLIC_BASE_URL}/api/v1/series/${course.join("+")}/course`
   );
   const data = await response.json();
-  console.log({ serverData: data });
   return {
     props: {
       data,

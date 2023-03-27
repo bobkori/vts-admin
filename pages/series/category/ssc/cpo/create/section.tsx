@@ -1,28 +1,22 @@
+import pMap from "p-map";
 import React from "react";
 import axios from "axios";
-import { useImmer } from "use-immer";
+import { cloneDeep } from "lodash";
 import { useRouter } from "next/router";
 import Input from "@/components/inputs";
 import Button from "@/components/button";
 import Select from "@/components/select";
-import Option from "@/components/select/option";
+import PerPageLayout from "@/layout/perpage";
 import css from "@/styles/series.module.scss";
+import Option from "@/components/select/option";
+import uploadImage from "@/endpoints/api/upload-series-image";
 import QuestionContainer from "@/components/section/question-container";
 import useCreateSection from "@/components/series/use-create-section";
 
-type IEvent = React.ChangeEvent<HTMLInputElement>;
-
-const options = Array.from({ length: 4 }).map((_, index) => {
-  return {
-    prompt: index + 1,
-    value: "",
-  };
-});
-
 type FEvent = React.ChangeEvent<HTMLFormElement>;
 
-const TestSeriesHome = () => {
-  const { query } = useRouter();
+const SectionCreation = () => {
+  const { query, back } = useRouter();
 
   const {
     state,
@@ -34,45 +28,75 @@ const TestSeriesHome = () => {
     onChangeValues,
     onDeleteQuestion,
     onChangeMarks,
+    onAddImageToOptions,
+    onAddImageToQuestion,
   } = useCreateSection();
 
+  console.log(state);
   const onSubmitData = React.useCallback(
     async (event: FEvent) => {
       event.preventDefault();
-      query?.series_id;
-      const _data = {
-        title: state.title,
-        questionsCount: state.questions.length,
-        time: state.time,
-        marks: {
-          positive: 2,
-          negative: -0.5,
-        },
-        questions: state.questions,
-      };
-      console.log(_data);
+      // Generate Simple Response for DB
       try {
-        const { data, status } = await axios({
-          url: `http://localhost:4000/api/v1/sections/${query?.series_id}`,
-          method: "post",
-          data: _data,
+        const cloned = cloneDeep(state.questions);
+        const value = await pMap(cloned, async (item) => {
+          if (item.english.image !== null) {
+            item.english.image = await uploadImage(item.english.image);
+            item.english.options.map(async (item) => {
+              if (item.image !== null) {
+                item.image = await uploadImage(item.image);
+              }
+            });
+          }
+          if (item.hindi.image !== null) {
+            item.hindi.image = await uploadImage(item.hindi.image);
+            item.hindi.options.map(async (item) => {
+              if (item.image !== null) {
+                item.image = await uploadImage(item.image);
+              }
+            });
+          }
+          return item;
         });
-        console.log(data);
-        if (status === 200) {
-          alert(`Section created for ${query?.series_id} Series`);
-        }
-      } catch (err) {
-        console.log(err);
+        const _data = {
+          title: state.title,
+          questionsCount: state.questions.length,
+          marks: {
+            positive: state.marks.positive,
+            negative: state.marks.negative,
+          },
+          questions: value,
+        };
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/sections/create/${query?.series_id}`,
+            _data
+          )
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              back();
+              alert(`Section created for ${query?.series_id} Series`);
+            }
+          });
+      } catch (error) {
+        console.log();
       }
-      console.log(state);
     },
-    [query?.series_id, state]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      state.title,
+      state.questions,
+      state.marks.positive,
+      state.marks.negative,
+      query?.series_id,
+    ]
   );
 
   return (
     <div className={css["series-container"]}>
       <div className={css["question-detail"]}>
-        <h2>Create Section One</h2>
+        <h2>Create Section </h2>
       </div>
       <form
         onSubmit={onSubmitData}
@@ -118,7 +142,6 @@ const TestSeriesHome = () => {
             </div>
           </div>
         </div>
-
         <div
           style={{
             gap: ".5rem",
@@ -137,6 +160,8 @@ const TestSeriesHome = () => {
                 onDeleteQuestion={onDeleteQuestion}
                 onChangeSolution={onChangeSolution}
                 onChangeCorrect={onChangeCorrect}
+                onAddImageToQuestion={onAddImageToQuestion}
+                onAddImageToOptions={onAddImageToOptions}
               />
             );
           })}
@@ -153,4 +178,6 @@ const TestSeriesHome = () => {
     </div>
   );
 };
-export default TestSeriesHome;
+export default SectionCreation;
+
+SectionCreation.perpage = PerPageLayout;

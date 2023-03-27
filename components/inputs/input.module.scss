@@ -48,3 +48,33 @@
     }
   }
 }
+//
+
+.image-container {
+  display: flex;
+  // align-items: center;
+  gap: 4px;
+}
+
+.input-file {
+  display: none;
+}
+.image-preview {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  background: var(--tetra-dark-background);
+  display: flex !important;
+  margin: 0 !important;
+  border-radius: 4px;
+  overflow: hidden;
+  justify-content: center;
+  img {
+    height: 100%;
+    max-width: 65px;
+    max-height: 40px;
+    object-fit: cover;
+    min-height: 40px;
+    min-width: 50px;
+  }
+}

@@ -7,6 +7,7 @@ import NurseIcon from "@/icons/NurseIcon";
 import css from "@/styles/grid.module.scss";
 import { useRouter } from "next/router";
 import AddCircleOutline from "@/icons/AddCircleOutline";
+import PerPageLayout from "@/layout/perpage";
 
 const Category = () => {
   const { push } = useRouter();
@@ -28,6 +29,7 @@ const Category = () => {
 };
 export default Category;
 
+Category.perpage = PerPageLayout;
 const dataArray = [
   {
     title: "SSC",

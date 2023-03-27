@@ -9,8 +9,10 @@ import View from "@/components/view";
 import Button from "@/components/button";
 import { GetServerSidePropsContext } from "next";
 import DataRow, { DataRowProps } from "@/components/section/data-row";
+import PerPageLayout from "@/layout/perpage";
+import { NEXT_PUBLIC_BASE_URL } from "@/config";
 
-const CHSLPage = ({ data }: any) => {
+const Page = ({ data }: any) => {
   const { push } = useRouter();
   function onDeleteProduct(_id: any): void {
     throw new Error("Function not implemented.");
@@ -49,13 +51,14 @@ const CHSLPage = ({ data }: any) => {
     </div>
   );
 };
-export default CHSLPage;
+export default Page;
+Page.perpage = PerPageLayout;
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const response = await fetch(
-    `http://localhost:4000/api/v1/series/sections/${context.query.series_id}`
+    `${NEXT_PUBLIC_BASE_URL}/api/v1/series/${context.query.series_id}/sections`
   );
   const data = await response.json();
   console.log({ serverData: data });

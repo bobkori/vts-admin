@@ -1,0 +1,75 @@
+/* eslint-disable @next/next/no-img-element */
+import React from "react";
+import AddIcon from "@/icons/add";
+import Input from "@/components/inputs";
+import imageURL from "@/utils/blog-to-url";
+import css from "@/styles/series.module.scss";
+
+type ImageUploadAndPreviewProps = {
+  value: File;
+  onPickImage: (state: File) => void;
+};
+
+const ImageUploadAndPreview = ({
+  onPickImage,
+  value,
+}: ImageUploadAndPreviewProps) => {
+  const [image, setImage] = React.useState(value);
+
+  React.useMemo(() => {
+    if (value) {
+      setImage(value);
+    }
+  }, [value]);
+
+  React.useMemo(() => {
+    if (onPickImage) {
+      onPickImage(image);
+    }
+  }, [onPickImage, image]);
+
+  const onChangeImage = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { files } = event.target;
+      if (files) {
+        const filesArray = Array.from(files);
+        filesArray.forEach(async (file) => {
+          image;
+          setImage(file);
+        });
+      }
+    },
+    [image]
+  );
+
+  const _imageUrl = React.useMemo(() => {
+    if (!image) {
+      return imageURL(`/images/image-preview.png`);
+    } else {
+      return imageURL(image);
+    }
+  }, [image]);
+
+  return (
+    <div className={css["image-upload"]}>
+      <div className={css["preview"]}>
+        <img src={_imageUrl} alt="preview-image" />
+      </div>
+      <label
+        className={css["controls"]}
+        htmlFor="pick-image"
+        title="Pick An Image"
+      >
+        <Input
+          id="pick-image"
+          type={"file"}
+          style={{ display: "none" }}
+          onChange={onChangeImage}
+        />
+        <AddIcon fill="#fff" />
+      </label>
+    </div>
+  );
+};
+
+export default ImageUploadAndPreview;

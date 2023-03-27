@@ -1,18 +1,13 @@
-import Layout from "@/layout";
+import store from "@/store";
 import "@/styles/globals.scss";
-import CTXProvider from "@/context";
-import type { AppProps } from "next/app";
-import { MantineProvider } from "@mantine/core";
+import { Provider } from "react-redux";
+import { AppPropsWithLayout } from "@/typings/pages";
 
-function App({ Component, pageProps }: AppProps) {
+function RootApp(props: AppPropsWithLayout) {
+  const { Component, pageProps } = props;
+  const perpage = Component.perpage ?? ((page) => page);
   return (
-    <CTXProvider>
-      <MantineProvider theme={{ colorScheme: "dark" }}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </MantineProvider>
-    </CTXProvider>
+    <Provider store={store}>{perpage(<Component {...pageProps} />)}</Provider>
   );
 }
-export default App;
+export default RootApp;

@@ -9,10 +9,12 @@ import View from "@/components/view";
 import Button from "@/components/button";
 import axios from "axios";
 import DataRow, { DataRowProps } from "@/components/section/data-row";
+import { NEXT_PUBLIC_BASE_URL } from "@/config";
+import PerPageLayout from "@/layout/perpage";
 
 const course = ["ssc", "cpo"];
 
-const CHSLPage = ({ data }: any) => {
+const Page = ({ data }: any) => {
   const { push } = useRouter();
   async function onDeleteSeries(_id: any): Promise<void> {
     console.log(_id);
@@ -69,14 +71,14 @@ const CHSLPage = ({ data }: any) => {
     </div>
   );
 };
-export default CHSLPage;
+export default Page;
+Page.perpage = PerPageLayout;
 
 export const getServerSideProps = async () => {
   const response = await fetch(
-    `http://localhost:4000/api/v1/series/${course.join("+")}`
+    `${NEXT_PUBLIC_BASE_URL}/api/v1/series/${course.join("+")}/course`
   );
   const data = await response.json();
-  console.log({ serverData: data });
   return {
     props: {
       data,

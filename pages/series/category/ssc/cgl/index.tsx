@@ -1,26 +1,33 @@
 import React from "react";
-import { useRouter } from "next/router";
-import styles from "@/styles/table.module.scss";
-import TableHeader from "@/components/table/header";
+import axios from "axios";
+import View from "@/components/view";
 import Table from "@/components/table";
+import Button from "@/components/button";
+import { useRouter } from "next/router";
 import TableHead from "@/components/table/head";
 import TableBody from "@/components/table/body";
-import View from "@/components/view";
-import Button from "@/components/button";
-import axios from "axios";
+import PerPageLayout from "@/layout/perpage";
+import styles from "@/styles/table.module.scss";
+import { NEXT_PUBLIC_BASE_URL } from "@/config";
+import TableHeader from "@/components/table/header";
 import DataRow, { DataRowProps } from "@/components/section/data-row";
 
 const course = ["ssc", "cgl"];
 
-const CHSLPage = ({ data }: any) => {
+const Page = ({ data }: any) => {
   const { push } = useRouter();
 
   async function onDeleteSeries(_id: any): Promise<void> {
     try {
-      await axios({
-        url: `http://localhost:4000/api/v1/series/${_id}`,
-        method: "delete",
-      });
+      if (window.confirm("Are you sure to delete this series")) {
+        const { status } = await axios({
+          url: `${NEXT_PUBLIC_BASE_URL}/api/v1/series/${_id}`,
+          method: "delete",
+        });
+        if (status === 200) {
+          alert(`Deleted`);
+        }
+      }
     } catch (error) {
       console.log(error);
     }
@@ -66,11 +73,13 @@ const CHSLPage = ({ data }: any) => {
     </View>
   );
 };
-export default CHSLPage;
+export default Page;
+
+Page.perpage = PerPageLayout;
 
 export const getServerSideProps = async () => {
   const response = await fetch(
-    `http://localhost:4000/api/v1/series/${course.join("+")}`
+    `${NEXT_PUBLIC_BASE_URL}/api/v1/series/${course.join("+")}/course`
   );
   const data = await response.json();
   return {
@@ -97,3 +106,13 @@ const headerArray = [
     name: "Action",
   },
 ];
+
+/**
+ *   const { data: _data } = useSwr(
+    `${NEXT_PUBLIC_BASE_URL}/api/v1/series/${course.join("+")}/course`,
+    axios.request,
+    { revalidateOnFocus: true, revalidateOnMount: true }
+  );
+
+  console.log({ _data: _data });
+ */

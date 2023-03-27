@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import CreateSeries from "@/components/series/create";
+import PerPageLayout from "@/layout/perpage";
 
 const course = ["ssc", "cgl"];
 
@@ -9,9 +10,10 @@ const TestSeriesHome = () => {
   const router = useRouter();
   const onSubmitData = React.useCallback(
     async (state: any) => {
+      console.log({ state });
       try {
         const { status } = await axios({
-          url: "http://localhost:4000/api/v1/series",
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/series`,
           method: "post",
           data: state,
         });
@@ -31,3 +33,5 @@ const TestSeriesHome = () => {
   );
 };
 export default TestSeriesHome;
+
+TestSeriesHome.perpage = PerPageLayout;

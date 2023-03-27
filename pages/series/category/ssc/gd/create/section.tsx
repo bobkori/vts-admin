@@ -1,149 +1,102 @@
+import pMap from "p-map";
 import React from "react";
 import axios from "axios";
-import { useImmer } from "use-immer";
+import { cloneDeep } from "lodash";
 import { useRouter } from "next/router";
 import Input from "@/components/inputs";
 import Button from "@/components/button";
 import Select from "@/components/select";
-import Option from "@/components/select/option";
+import PerPageLayout from "@/layout/perpage";
 import css from "@/styles/series.module.scss";
+import Option from "@/components/select/option";
+import uploadImage from "@/endpoints/api/upload-series-image";
 import QuestionContainer from "@/components/section/question-container";
-
-type IEvent = React.ChangeEvent<HTMLInputElement>;
-
-const options = Array.from({ length: 4 }).map((_, index) => {
-  return {
-    prompt: index + 1,
-    value: "",
-  };
-});
+import useCreateSection from "@/components/series/use-create-section";
 
 type FEvent = React.ChangeEvent<HTMLFormElement>;
 
-const TestSeriesHome = () => {
-  const { query } = useRouter();
-  // console.log(query?.series_id);
+const SectionCreation = () => {
+  const { query, back } = useRouter();
 
-  const questions = [
-    {
-      type: "mcq",
-      QSNo: 1,
-      SSNo: 1,
-      SSSNo: 0,
-      hindi: {
-        question: "",
-        options: options,
-      },
-      english: {
-        question: "",
-        options: options,
-      },
-    },
-  ];
+  const {
+    state,
+    onAddQuestion,
+    onChangeCorrect,
+    onChangeOptions,
+    onChangeQuestion,
+    onChangeSolution,
+    onChangeValues,
+    onDeleteQuestion,
+    onChangeMarks,
+    onAddImageToOptions,
+    onAddImageToQuestion,
+  } = useCreateSection();
 
-  const [state, updateQuestionState] = useImmer({
-    title: "",
-    questionsCount: "",
-    time: 3000,
-    marks: {
-      positive: 2,
-      negative: -0.5,
-    },
-    questions: questions,
-  });
-  // ADD QUESTION IN STATE
-  const onAddQuestion = React.useCallback(() => {
-    updateQuestionState((draft) => {
-      draft.questions.push(...questions);
-    });
-  }, [state, updateQuestionState]);
-
-  const onDeleteQuestion = React.useCallback(
-    (index: number) => {
-      updateQuestionState((draft) => {
-        draft.questions.filter((_d, _i) => index !== _i);
-      });
-    },
-    [updateQuestionState]
-  );
-
-  const onChangeValues = React.useCallback(
-    (key: any, value: any) => {
-      updateQuestionState((draft: any) => {
-        draft[key] = value;
-      });
-    },
-    [updateQuestionState]
-  );
-  // Update Question
-  const onChangeQuestion = React.useCallback(
-    (event: IEvent, language: string, index: number) => {
-      const { value } = event.target;
-      updateQuestionState((draft) => {
-        const question = draft.questions[index] as any;
-        question[language].question = value;
-      });
-    },
-    [updateQuestionState]
-  );
-
-  // Update Options
-  const onChangeOptions = React.useCallback(
-    (
-      event: IEvent,
-      language: string,
-      index: {
-        parentIndex: number;
-        childIndex: number;
-      }
-    ) => {
-      const { value } = event.target;
-      updateQuestionState((draft) => {
-        // @ts-ignore
-        const _draft = draft.questions[index.parentIndex][language];
-        _draft.options[index.childIndex].value = value;
-      });
-    },
-    [updateQuestionState]
-  );
-
+  console.log(state);
   const onSubmitData = React.useCallback(
     async (event: FEvent) => {
       event.preventDefault();
-      query?.series_id;
-      const _data = {
-        title: state.title,
-        questionsCount: state.questions.length,
-        time: state.time,
-        marks: {
-          positive: 2,
-          negative: -0.5,
-        },
-        questions: state.questions,
-      };
-      console.log(_data);
+      // Generate Simple Response for DB
       try {
-        const { data, status } = await axios({
-          url: `http://localhost:4000/api/v1/sections/${query?.series_id}`,
-          method: "post",
-          data: _data,
+        const cloned = cloneDeep(state.questions);
+        const value = await pMap(cloned, async (item) => {
+          if (item.english.image !== null) {
+            item.english.image = await uploadImage(item.english.image);
+            item.english.options.map(async (item) => {
+              if (item.image !== null) {
+                item.image = await uploadImage(item.image);
+              }
+            });
+          }
+          if (item.hindi.image !== null) {
+            item.hindi.image = await uploadImage(item.hindi.image);
+            item.hindi.options.map(async (item) => {
+              if (item.image !== null) {
+                item.image = await uploadImage(item.image);
+              }
+            });
+          }
+          return item;
         });
-        console.log(data);
-        if (status === 200) {
-          alert(`Section created for ${query?.series_id} Series`);
-        }
-      } catch (err) {
-        console.log(err);
+        const _data = {
+          title: state.title,
+          questionsCount: state.questions.length,
+          marks: {
+            positive: state.marks.positive,
+            negative: state.marks.negative,
+          },
+          questions: value,
+        };
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/sections/create/${query?.series_id}`,
+            _data
+          )
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              back();
+              alert(`Section created for ${query?.series_id} Series`);
+            }
+          });
+      } catch (error) {
+        console.log();
       }
-      console.log(state);
     },
-    [query?.series_id, state]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      state.title,
+      state.questions,
+      state.marks.positive,
+      state.marks.negative,
+      query?.series_id,
+    ]
   );
 
   return (
     <div className={css["series-container"]}>
       <div className={css["question-detail"]}>
-        <h2>Create Section One</h2>
+        <h2>Create Section </h2>
       </div>
       <form
         onSubmit={onSubmitData}
@@ -155,9 +108,10 @@ const TestSeriesHome = () => {
       >
         <div className={`${css["question-container"]}`}>
           <div className={`row`}>
-            <div className="col-lg-6">
+            <div className="col-lg-12">
               <Select
                 label="Select Subject"
+                value={state.title}
                 onChange={({ target }) => onChangeValues("title", target.value)}
               >
                 <Option>Reasoning</Option>
@@ -169,19 +123,25 @@ const TestSeriesHome = () => {
             <div className="col-lg-6">
               <Input
                 type={"number"}
-                label="Duration"
-                onChange={({ target }) => onChangeValues("time", target.value)}
+                label="Negative Marking"
+                value={state.marks.negative}
+                onChange={({ target }) =>
+                  onChangeMarks("negative", target.value)
+                }
               />
             </div>
             <div className="col-lg-6">
-              <Input type={"number"} label="Negative Marking" />
-            </div>
-            <div className="col-lg-6">
-              <Input type={"number"} label="Positive Marking" />
+              <Input
+                type={"number"}
+                label="Positive Marking"
+                value={state.marks.positive}
+                onChange={({ target }) =>
+                  onChangeMarks("positive", target.value)
+                }
+              />
             </div>
           </div>
         </div>
-
         <div
           style={{
             gap: ".5rem",
@@ -198,6 +158,10 @@ const TestSeriesHome = () => {
                 onChangeQuestion={onChangeQuestion}
                 onChangeOptions={onChangeOptions}
                 onDeleteQuestion={onDeleteQuestion}
+                onChangeSolution={onChangeSolution}
+                onChangeCorrect={onChangeCorrect}
+                onAddImageToQuestion={onAddImageToQuestion}
+                onAddImageToOptions={onAddImageToOptions}
               />
             );
           })}
@@ -214,4 +178,6 @@ const TestSeriesHome = () => {
     </div>
   );
 };
-export default TestSeriesHome;
+export default SectionCreation;
+
+SectionCreation.perpage = PerPageLayout;

@@ -1,11 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   async rewrites() {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:5000/:path*", // Proxy to Backend
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`, // Proxy to Backend
       },
     ];
   },

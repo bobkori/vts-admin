@@ -9,14 +9,14 @@ import View from "@/components/view";
 import Button from "@/components/button";
 import { GetServerSidePropsContext } from "next";
 import DataRow, { DataRowProps } from "@/components/section/data-row";
+import PerPageLayout from "@/layout/perpage";
+import { NEXT_PUBLIC_BASE_URL } from "@/config";
 
 const CHSLPage = ({ data }: any) => {
   const { push } = useRouter();
-  function onDeleteProduct(_id: any): void {
-    throw new Error("Function not implemented.");
-  }
 
   const router = useRouter();
+  console.log(data);
   return (
     <div className={`${styles["table-container"]}`}>
       <View>
@@ -39,7 +39,13 @@ const CHSLPage = ({ data }: any) => {
           </TableHead>
           <TableBody>
             {data?.sections?.map((item: DataRowProps, index: number) => {
-              return <DataRow key={index} {...item} />;
+              return (
+                <DataRow
+                  key={index}
+                  title={item.title}
+                  questionsCount={item.questionsCount}
+                />
+              );
             })}
           </TableBody>
         </React.Fragment>
@@ -49,14 +55,16 @@ const CHSLPage = ({ data }: any) => {
 };
 export default CHSLPage;
 
+CHSLPage.perpage = PerPageLayout;
+
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const response = await fetch(
-    `http://localhost:4000/api/v1/series/sections/${context.query.series_id}`
+    `${NEXT_PUBLIC_BASE_URL}/api/v1/series/${context.query.series_id}/sections`
   );
   const data = await response.json();
-  console.log({ serverData: data });
+
   return {
     props: {
       data,
@@ -71,6 +79,10 @@ const headerArray = [
   },
   {
     name: "Questions Count",
+  },
+
+  {
+    name: "Time",
   },
   {
     name: "Action",

@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import PerPageLayout from "@/layout/perpage";
 
 function Home() {
   return (
@@ -10,7 +11,6 @@ function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <div className="home">
         <h1>Home</h1>
       </div>
@@ -19,3 +19,5 @@ function Home() {
 }
 
 export default Home;
+
+Home.perpage = PerPageLayout;

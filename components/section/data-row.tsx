@@ -10,6 +10,7 @@ import TableRow from "@/components/table/t-row";
 import TableData from "@/components/table/t-data";
 
 export interface DataRowProps {
+  questionsCount?: string;
   _id?: string;
   title?: string;
   createdAt?: string;
@@ -29,6 +30,7 @@ const DataRow = ({
   onView,
   _id,
   course,
+  questionsCount,
 }: DataRowProps) => {
   return (
     <TableRow>
@@ -38,12 +40,21 @@ const DataRow = ({
       <TableData>
         <View>{title}</View>
       </TableData>
-      <TableData className={`text-align-center`}>
-        <View>{course?.join(", ")}</View>
-      </TableData>
+      {course && (
+        <TableData className={`text-align-center`}>
+          <View>{course?.join(", ")}</View>
+        </TableData>
+      )}
+      {questionsCount && (
+        <TableData className={`text-align-center`}>
+          <View>{questionsCount}</View>
+        </TableData>
+      )}
+
       <TableData className={`text-align-center`}>
         <View>{sections?.length}</View>
       </TableData>
+
       <TableData className={`text-align-center`}>
         <View>{moment().format(`DD MMM YYYY HH:MM`)}</View>
       </TableData>

@@ -1,17 +1,21 @@
+import pMap from "p-map";
 import React from "react";
 import axios from "axios";
+import { cloneDeep } from "lodash";
 import { useRouter } from "next/router";
 import Input from "@/components/inputs";
 import Button from "@/components/button";
 import Select from "@/components/select";
+import PerPageLayout from "@/layout/perpage";
 import css from "@/styles/series.module.scss";
 import Option from "@/components/select/option";
+import uploadImage from "@/endpoints/api/upload-series-image";
 import QuestionContainer from "@/components/section/question-container";
 import useCreateSection from "@/components/series/use-create-section";
 
 type FEvent = React.ChangeEvent<HTMLFormElement>;
 
-const TestSeriesHome = () => {
+const SectionCreation = () => {
   const { query, back } = useRouter();
 
   const {
@@ -24,51 +28,75 @@ const TestSeriesHome = () => {
     onChangeValues,
     onDeleteQuestion,
     onChangeMarks,
+    onAddImageToOptions,
+    onAddImageToQuestion,
   } = useCreateSection();
 
+  console.log(state);
   const onSubmitData = React.useCallback(
     async (event: FEvent) => {
       event.preventDefault();
-      query?.series_id;
-      const _data = {
-        title: state.title,
-        questionsCount: state.questions.length,
-        marks: {
-          positive: state.marks.positive,
-          negative: state.marks.negative,
-        },
-        questions: state.questions,
-      };
+      // Generate Simple Response for DB
       try {
-        const { status } = await axios({
-          url: `http://localhost:4000/api/v1/sections/${query?.series_id}`,
-          method: "post",
-          data: _data,
+        const cloned = cloneDeep(state.questions);
+        const value = await pMap(cloned, async (item) => {
+          if (item.english.image !== null) {
+            item.english.image = await uploadImage(item.english.image);
+            item.english.options.map(async (item) => {
+              if (item.image !== null) {
+                item.image = await uploadImage(item.image);
+              }
+            });
+          }
+          if (item.hindi.image !== null) {
+            item.hindi.image = await uploadImage(item.hindi.image);
+            item.hindi.options.map(async (item) => {
+              if (item.image !== null) {
+                item.image = await uploadImage(item.image);
+              }
+            });
+          }
+          return item;
         });
-
-        if (status === 200) {
-          back();
-          alert(`Section created for ${query?.series_id} Series`);
-        }
-        console.log(_data);
-      } catch (err) {
-        console.log(err);
+        const _data = {
+          title: state.title,
+          questionsCount: state.questions.length,
+          marks: {
+            positive: state.marks.positive,
+            negative: state.marks.negative,
+          },
+          questions: value,
+        };
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/sections/create/${query?.series_id}`,
+            _data
+          )
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              back();
+              alert(`Section created for ${query?.series_id} Series`);
+            }
+          });
+      } catch (error) {
+        console.log();
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      back,
       state.title,
       state.questions,
-      query?.series_id,
-      state.marks.negative,
       state.marks.positive,
+      state.marks.negative,
+      query?.series_id,
     ]
   );
 
   return (
     <div className={css["series-container"]}>
       <div className={css["question-detail"]}>
-        <h2>Create Section One</h2>
+        <h2>Create Section </h2>
       </div>
       <form
         onSubmit={onSubmitData}
@@ -114,7 +142,6 @@ const TestSeriesHome = () => {
             </div>
           </div>
         </div>
-
         <div
           style={{
             gap: ".5rem",
@@ -133,6 +160,8 @@ const TestSeriesHome = () => {
                 onDeleteQuestion={onDeleteQuestion}
                 onChangeSolution={onChangeSolution}
                 onChangeCorrect={onChangeCorrect}
+                onAddImageToQuestion={onAddImageToQuestion}
+                onAddImageToOptions={onAddImageToOptions}
               />
             );
           })}
@@ -149,4 +178,6 @@ const TestSeriesHome = () => {
     </div>
   );
 };
-export default TestSeriesHome;
+export default SectionCreation;
+
+SectionCreation.perpage = PerPageLayout;

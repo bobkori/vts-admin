@@ -11,6 +11,8 @@ import TableBody from "@/components/table/body";
 import TableRow from "@/components/table/t-row";
 import TableData from "@/components/table/t-data";
 import TableHeader from "@/components/table/header";
+import { NEXT_PUBLIC_BASE_URL } from "@/config";
+import PerPageLayout from "@/layout/perpage";
 
 const UsersPage = ({ users }: any) => {
   return (
@@ -34,6 +36,7 @@ const UsersPage = ({ users }: any) => {
   );
 };
 export default UsersPage;
+UsersPage.perpage = PerPageLayout;
 
 interface DataRowProps {
   name?: string;
@@ -109,7 +112,7 @@ const headerArray = [
 ];
 
 export const getServerSideProps = async () => {
-  const response = await fetch(`http://localhost:4000/api/v1/user`);
+  const response = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/v1/auth/user`);
 
   const users = await response.json();
   console.log(users);
